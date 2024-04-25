@@ -1,5 +1,5 @@
+from View import auth_view as auth
 import os
-
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
@@ -19,10 +19,14 @@ def menuUtama():
         try:
             pilihan = int(input("Masukkan Pilihan [1/2]: "))
             if pilihan == 1:
-                pass
+                auth.login()
             elif pilihan == 2:
-                pass
+                auth.daftar()
             elif pilihan == 3:
+                clear()
+                print("+============================================+")
+                print("| Terima Kasih Telah Menggunakan Program Ini |")
+                print("+============================================+")
                 break
             else:
                 clear()
