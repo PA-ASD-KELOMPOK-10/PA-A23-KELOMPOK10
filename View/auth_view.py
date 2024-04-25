@@ -1,3 +1,6 @@
+# Import
+
+
 import os
 from Controller import auth_controller as auth
 from Model.database import koneksiDatabase
@@ -5,10 +8,28 @@ from View import anggota_view as anggota
 from View import user_view as user
 from View import admin_view as admin
 
+
+
+# Koneksi Ke Database
+
+
+
 db, cursor = koneksiDatabase()
+
+
+
+# Fungsi Tambahan
+
+
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
+
+
+
+# Login
+
+
 
 def login():
     while True:
@@ -35,7 +56,6 @@ def login():
                         print("| Password Salah |")
                         print("+================+")
                         input("Tekan enter untuk melanjutkan...")
-                        cursor.fetchall()
                         break
                 elif auth.cekEmailAnggota(email):
                     password = str(input("Masukkan Password: "))
@@ -54,7 +74,6 @@ def login():
                         print("| Password Salah |")
                         print("+================+")
                         input("Tekan enter untuk melanjutkan...")
-                        cursor.fetchall()
                         break
                 elif auth.cekEmailUser(email):
                     password = str(input("Masukkan Password: "))
@@ -73,7 +92,6 @@ def login():
                         print("| Password Salah |")
                         print("+================+")
                         input("Tekan enter untuk melanjutkan...")
-                        cursor.fetchall()
                         break
                 else:
                     clear()
@@ -115,6 +133,12 @@ def login():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+
+
+
+# Daftar
+
+
 
 def daftar():
     while True:
