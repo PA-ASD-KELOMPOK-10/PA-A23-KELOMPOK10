@@ -1,33 +1,202 @@
-# Import
-
-
 from Model.database import koneksiDatabase
-from View import auth_view as auth
+from View import admin_view as admin
+from View import anggota_view as anggota
+from View import user_view as user
 import mysql.connector
 import os
 import re
 
-
-
-# Koneksi Ke Database
-
-
-
 db, cursor = koneksiDatabase()
-
-
-
-# Fungsi Tambahan
-
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
+# def login():
+#     while True:
+#         clear()
+#         print("+================+")
+#         print("| Silahkan Login |")
+#         print("+================+")
+#         try:
+#             email = str(input("Masukkan Email: "))
+#             if cekEmailUser(email):
+#                 password = str(input("Masukkan Password: "))
+#                 if loginAdmin(email, password):
+#                     clear()
+#                     print("+================+")
+#                     print("| Login Berhasil |")
+#                     print("+================+")
+#                     input("Tekan enter untuk melanjutkan...")
+#                     admin.menuAdmin()
+#                     break
+#                 elif loginAnggota(email, password):
+#                     clear()
+#                     print("+================+")
+#                     print("| Login Berhasil |")
+#                     print("+================+")
+#                     input("Tekan enter untuk melanjutkan...")
+#                     anggota.menuAnggota(ambilNamaAnggota(email, password))
+#                     break
+#                 elif loginUser(email, password):
+#                     clear()
+#                     print("+================+")
+#                     print("| Login Berhasil |")
+#                     print("+================+")
+#                     input("Tekan enter untuk melanjutkan...")
+#                     user.menuUser(ambilNamaUser(email, password))
+#                     break
+#                 else:
+#                     clear()
+#                     print("+================+")
+#                     print("| Password Salah |")
+#                     print("+================+")
+#                     input("Tekan enter untuk melanjutkan...")
+#             else:
+#                 clear()
+#                 print("+=======================+")
+#                 print("| Email tidak terdaftar |")
+#                 print("+=======================+")
+#                 input("Tekan enter untuk melanjutkan...")
+#                 break
+#         except:
+#             print("+===========================+")
+#             print("| Mohon Perhatikan Masukkan |")
+#             print("+===========================+")
+#             input("Tekan enter untuk melanjutkan...")
 
+def login():
+    while True:
+        clear()
+        print("+================+")
+        print("| Silahkan Login |")
+        print("+================+")
+        try:
+            email = str(input("Masukkan Email: "))
+            if cekEmailAdmin(email):
+                password = str(input("Masukkan Password: "))
+                if loginAdmin(email, password):
+                    clear()
+                    print("+================+")
+                    print("| Login Berhasil |")
+                    print("+================+")
+                    input("Tekan enter untuk melanjutkan...")
+                    admin.menuAdmin()
+                    break
+                else:
+                    clear()
+                    print("+================+")
+                    print("| Password Salah |")
+                    print("+================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif cekEmailAnggota(email):
+                password = str(input("Masukkan Password: "))
+                if loginAnggota(email, password):
+                    clear()
+                    print("+================+")
+                    print("| Login Berhasil |")
+                    print("+================+")
+                    input("Tekan enter untuk melanjutkan...")
+                    anggota.menuAnggota(ambilNamaAnggota(email, password))
+                    break
+                else:
+                    clear()
+                    print("+================+")
+                    print("| Password Salah |")
+                    print("+================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif cekEmailUser(email):
+                password = str(input("Masukkan Password: "))
+                if loginUser(email, password):
+                    clear()
+                    print("+================+")
+                    print("| Login Berhasil |")
+                    print("+================+")
+                    input("Tekan enter untuk melanjutkan...")
+                    user.menuUser(ambilNamaUser(email, password))
+                    break
+                else:
+                    clear()
+                    print("+================+")
+                    print("| Password Salah |")
+                    print("+================+")
+                    input("Tekan enter untuk melanjutkan...")
+            else:
+                clear()
+                print("+=======================+")
+                print("| Email tidak terdaftar |")
+                print("+=======================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
 
-# Login
-
-
+def daftar():
+    while True:
+        clear()
+        print("+=================+")
+        print("| Silahkan Daftar |")
+        print("+=================+")
+        try:
+            email = str(input("Masukkan Email: "))
+            if cekFormatEmail(email):
+                if not cekEmailUser(email):
+                    password = str(input("Masukkan Password: "))
+                    if len(password) <= 255:
+                        nama = str(input("Masukkan Nama: "))
+                        if len(nama) <= 255:
+                            alamat = str(input("Masukkan Alamat: "))
+                            if len(alamat) <= 100:
+                                noHP = str(input("Masukkan Nomor HP: "))
+                                if len(noHP) <= 20:
+                                    query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
+                                    cursor.execute(query, (nama, password, email, alamat, noHP))
+                                    db.commit()
+                                    pesan = f"| Akun Dengan Nama {nama} Berhasil Terdaftar |"
+                                    print("+" + "=" * (len(pesan) - 2) + "+")
+                                    print(pesan)
+                                    print("+" + "=" * (len(pesan) - 2) + "+")
+                                    input("Tekan enter untuk melanjutkan...")
+                                    cursor.fetchall()
+                                    break
+                                else:
+                                    clear()
+                                    print("+=============================================+")
+                                    print("| Nomor HP Tidak Boleh Lebih Dari 20 Karakter |")
+                                    print("+=============================================+")
+                                    input("Tekan enter untuk melanjutkan...") 
+                            else:
+                                clear()
+                                print("+===========================================+")
+                                print("| Alamat Tidak Boleh Lebih Dari 100 Karakter |")
+                                print("+===========================================+")
+                                input("Tekan enter untuk melanjutkan...") 
+                    else:
+                        clear()
+                        print("+==========================================+")
+                        print("| Nama Tidak Boleh Lebih Dari 255 Karakter |")
+                        print("+==========================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+=============================+")
+                    print("| Email Sudah Ada Di Database |")
+                    print("+=============================+")
+                    input("Tekan enter untuk melanjutkan...")
+                    break
+            else:
+                clear()
+                print("+====================+")
+                print("| Format Email Salah |")
+                print("+====================+")
+                break
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
 
 def loginAdmin(email, password):
     try:
@@ -74,300 +243,6 @@ def loginUser(email, password):
         print(f"Error MySQL: {err.msg}")
         input("Tekan enter untuk melanjutkan...")
 
-def ambilNamaAnggota(email, password):
-    try:
-        query = "SELECT * FROM anggota WHERE email_anggota = %s AND password_anggota = %s"
-        cursor.execute(query, (email, password))
-        login = cursor.fetchone()
-        if login:
-            namaAnggota = str(login[1])
-            cursor.fetchall()
-            return namaAnggota
-        else:
-            cursor.fetchall()
-            return False
-    except mysql.connector.Error as err:
-        print(f"Error MySQL: {err.msg}")
-        input("Tekan enter untuk melanjutkan...")
-
-def ambilNamaUser(email, password):
-    try:
-        query = "SELECT * FROM user WHERE Email_User = %s AND Password_User = %s"
-        cursor.execute(query, (email, password))
-        login = cursor.fetchone()
-        if login:
-            namaAnggota = str(login[2])
-            cursor.fetchall()
-            return namaAnggota
-        else:
-            cursor.fetchall()
-            return False
-    except mysql.connector.Error as err:
-        print(f"Error MySQL: {err.msg}")
-        input("Tekan enter untuk melanjutkan...")
-
-
-
-# Daftar
-
-
-
-def daftarEmail():
-    while True:
-        try:
-            email = str(input("Masukkan Email: "))
-            if cekFormatEmail(email):
-                if not cekEmailAdmin(email):
-                    if not cekEmailAnggota(email):
-                        if not cekEmailUser(email):
-                                if len(email) <= 100:
-                                    return email
-                                else:
-                                    clear()
-                                    print("+===========================================+")
-                                    print("| Email Tidak Boleh Lebih Dari 100 Karakter |")
-                                    print("+===========================================+")
-                                    input("Tekan enter untuk melanjutkan...")
-                        else:
-                            clear()
-                            print("+===================================+")
-                            print("| Email Sudah Terdaftar Di Database |")
-                            print("+===================================+")
-                            input("Tekan enter untuk melanjutkan...")
-                            clear()
-                            cursor.fetchall()
-                            print("+=============================+")
-                            print("|   Apakah anda ingin Login?  |")
-                            print("+=============================+")
-                            print("| [1]. Ya                     |")
-                            print("| [2]. Tidak                  |")
-                            print("+=============================+")
-                            pilihan = int(input("Masukkan Pilihan [1/2]: "))
-                            if pilihan == 1:
-                                auth.login()
-                                return False
-                            elif pilihan == 2:
-                                return False
-                            else:
-                                clear()
-                                print("+================================+")
-                                print("|  Inputan Tidak Ada Di Pilihan  |")
-                                print("| Anda Dikembalikan Ke Menu Awal |")
-                                print("+================================+")
-                                input("Tekan enter untuk melanjutkan...")
-                                return False
-                    else:
-                        clear()
-                        print("+===================================+")
-                        print("| Email Sudah Terdaftar Di Database |")
-                        print("+===================================+")
-                        input("Tekan enter untuk melanjutkan...")
-                        clear()
-                        print("+=============================+")
-                        print("|   Apakah anda ingin Login?  |")
-                        print("+=============================+")
-                        print("| [1]. Ya                     |")
-                        print("| [2]. Tidak                  |")
-                        print("+=============================+")
-                        pilihan = int(input("Masukkan Pilihan [1/2]: "))
-                        if pilihan == 1:
-                            auth.login()
-                            return False
-                        elif pilihan == 2:
-                            return False
-                        else:
-                            clear()
-                            print("+================================+")
-                            print("|  Inputan Tidak Ada Di Pilihan  |")
-                            print("| Anda Dikembalikan Ke Menu Awal |")
-                            print("+================================+")
-                            input("Tekan enter untuk melanjutkan...")
-                            return False
-                else:
-                    clear()
-                    print("+===================================+")
-                    print("| Email Sudah Terdaftar Di Database |")
-                    print("+===================================+")
-                    input("Tekan enter untuk melanjutkan...")
-                    clear()
-                    print("+=============================+")
-                    print("|   Apakah anda ingin Login?  |")
-                    print("+=============================+")
-                    print("| [1]. Ya                     |")
-                    print("| [2]. Tidak                  |")
-                    print("+=============================+")
-                    pilihan = int(input("Masukkan Pilihan [1/2]: "))
-                    if pilihan == 1:
-                        auth.login()
-                        return False
-                    elif pilihan == 2:
-                        return False
-                    else:
-                        clear()
-                        print("+================================+")
-                        print("|  Inputan Tidak Ada Di Pilihan  |")
-                        print("| Anda Dikembalikan Ke Menu Awal |")
-                        print("+================================+")
-                        input("Tekan enter untuk melanjutkan...")
-                        return False
-            else:
-                clear()
-                print("+===========================+")
-                print("| Email Tidak Sesuai Format |")
-                print("+===========================+")
-                return False
-        except:
-            clear()
-            print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
-            print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-    
-def daftarNama():
-    while True:
-        try:
-            nama = str(input("Masukkan Nama: "))
-            if len(nama) <= 255:
-                return nama
-            else:
-                clear()
-                print("+==========================================+")
-                print("| Nama Tidak Boleh Lebih Dari 255 Karakter |")
-                print("+==========================================+")
-        except:
-            clear()
-            print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
-            print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-
-def daftarPassword():
-    while True:
-        try:
-            password = str(input("Masukkan Password: "))
-            if len(password) <= 255:
-                return password
-            else:
-                clear()
-                print("+==========================================+")
-                print("| Nama Tidak Boleh Lebih Dari 255 Karakter |")
-                print("+==========================================+")
-                input("Tekan enter untuk melanjutkan...")
-        except:
-            clear()
-            print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
-            print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-
-def daftarAlamat():
-    while True:
-        try:
-            alamat = str(input("Masukkan Alamat: "))
-            if len(alamat) <= 100:
-                return alamat
-            else:
-                clear()
-                print("+===========================================+")
-                print("| Alamat Tidak Boleh Lebih Dari 100 Karakter |")
-                print("+===========================================+")
-                input("Tekan enter untuk melanjutkan...") 
-        except:
-            clear()
-            print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
-            print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-
-def daftarNoHP():
-    while True:
-        try:
-            noHP = str(input("Masukkan Nomor HP: "))
-            if len(noHP) <= 20:
-                return noHP
-            else:
-                clear()
-                print("+==============================================+")
-                print("| Nomor HP Tidak Boleh Lebih Dari 20 Karakter |")
-                print("+=============================================+")
-                input("Tekan enter untuk melanjutkan...") 
-        except:
-            clear()
-            print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
-            print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-
-
-
-# Cek
-
-
-
-def cekNamaAdmin(nama):
-    try:
-        query = "SELECT * FROM admin WHERE Nama_Admin = %s"
-        cursor.execute(query, (nama, ))
-        admin = cursor.fetchone()
-        if admin:
-            cursor.fetchall()
-            return True
-        else:
-            cursor.fetchall()
-            return False
-    except mysql.connector.Error as err:
-        print(f"Error MySQL: {err.msg}")
-        input("Tekan enter untuk melanjutkan...")
-
-def cekNamaAnggota(nama):
-    try:
-        query = "SELECT * FROM anggota WHERE Nama_Anggota = %s"
-        cursor.execute(query, (nama, ))
-        admin = cursor.fetchone()
-        if admin:
-            cursor.fetchall()
-            return True
-        else:
-            cursor.fetchall()
-            return False
-    except mysql.connector.Error as err:
-        print(f"Error MySQL: {err.msg}")
-        input("Tekan enter untuk melanjutkan...")
-
-def cekNamaUser(nama):
-    try:
-        query = "SELECT * FROM user WHERE Nama_User = %s"
-        cursor.execute(query, (nama, ))
-        user = cursor.fetchone()
-        if user:
-            cursor.fetchall()
-            return True
-        else:
-            cursor.fetchall()
-            return False
-    except mysql.connector.Error as err:
-        print(f"Error MySQL: {err.msg}")
-        input("Tekan enter untuk melanjutkan...")
-
-def cekFormatEmail(email):
-    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-    return bool(re.match(pattern, email))
-
-def cekEmailUser(email):
-    try:
-        query = "SELECT * FROM user WHERE Email_User = %s"
-        cursor.execute(query, (email, ))
-        user = cursor.fetchone()
-        if user:
-            cursor.fetchall()
-            return True
-        else:
-            cursor.fetchall()
-            return False
-    except mysql.connector.Error as err:
-        print(f"Error MySQL: {err.msg}")
-        input("Tekan enter untuk melanjutkan...")
-
 def cekEmailAnggota(email):
     try:
         query = "SELECT * FROM anggota WHERE email_anggota = %s"
@@ -397,3 +272,55 @@ def cekEmailAdmin(email):
     except mysql.connector.Error as err:
         print(f"Error MySQL: {err.msg}")
         input("Tekan enter untuk melanjutkan...")
+
+def cekEmailUser(email):
+    try:
+        query = "SELECT * FROM user WHERE Email_User = %s"
+        cursor.execute(query, (email, ))
+        user = cursor.fetchone()
+        if user:
+            cursor.fetchall()
+            return True
+        else:
+            cursor.fetchall()
+            return False
+    except mysql.connector.Error as err:
+        print(f"Error MySQL: {err.msg}")
+        input("Tekan enter untuk melanjutkan...")
+
+def ambilNamaAnggota(email, password):
+    try:
+        query = "SELECT * FROM anggota WHERE email_anggota = %s AND password_anggota = %s"
+        cursor.execute(query, (email, password))
+        login = cursor.fetchone()
+        if login:
+            cursor.fetchall()
+            namaAnggota = str(login[1])
+            return namaAnggota
+        else:
+            cursor.fetchall()
+            return False
+    except mysql.connector.Error as err:
+        print(f"Error MySQL: {err.msg}")
+        input("Tekan enter untuk melanjutkan...")
+
+
+def ambilNamaUser(email, password):
+    try:
+        query = "SELECT * FROM user WHERE Email_User = %s AND Password_User = %s"
+        cursor.execute(query, (email, password))
+        login = cursor.fetchone()
+        if login:
+            cursor.fetchall()
+            namaAnggota = str(login[2])
+            return namaAnggota
+        else:
+            cursor.fetchall()
+            return False
+    except mysql.connector.Error as err:
+        print(f"Error MySQL: {err.msg}")
+        input("Tekan enter untuk melanjutkan...")
+
+def cekFormatEmail(email):
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return bool(re.match(pattern, email))

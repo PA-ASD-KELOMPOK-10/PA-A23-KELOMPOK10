@@ -1,4 +1,4 @@
-from View import auth_view as auth
+from Controller import auth_controller
 import os
 
 def clear():
@@ -19,9 +19,9 @@ def menuUtama():
         try:
             pilihan = int(input("Masukkan Pilihan [1/2]: "))
             if pilihan == 1:
-                auth.login()
+                auth_controller.login()
             elif pilihan == 2:
-                auth.daftar()
+                auth_controller.daftar()
             elif pilihan == 3:
                 clear()
                 print("+============================================+")
