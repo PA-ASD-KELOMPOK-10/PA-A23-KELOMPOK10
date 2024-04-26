@@ -318,6 +318,35 @@ def menuCariLaporan():
             break
 
 def menuUrutkanLaporan():
+    while True:
+        clear()
+        print("+=================+")
+        print("| Urutkan Laporan |")
+        print("+=================+")
+        print("| [1]. Ascending  |")
+        print("| [2]. Descending |")
+        print("| [3]. Keluar     |")
+        print("+=================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan: "))
+            if pilihan == 1:
+                urutkanLaporan()
+            elif pilihan == 2:
+                urutkanLaporanDescending()
+            elif pilihan == 3:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+def urutkanLaporan():
     clear()
     ambilDataLaporan()
     daftarID = []
@@ -329,19 +358,41 @@ def menuUrutkanLaporan():
     daftarIDTerurut = laporanLinkedList.quickSort(daftarID)
     
     tabel = PrettyTable()
-    tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan"]
+    tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan", "Status Laporan", "Respon Admin"]
 
     for idLaporan in daftarIDTerurut:
         node = laporanLinkedList.jumpSearchID(idLaporan, "laporan")
         if node:
             data = node.data
-            tabel.add_row([data["ID_Laporan"], data["ID_User"], data["Isi_Laporan"], data["Lokasi_Laporan"]])
+            tabel.add_row([data["ID_Laporan"], data["ID_User"], data["Isi_Laporan"], data["Lokasi_Laporan"], data["status_laporan"], data["respon_admin"]])
     
     clear()
     print(tabel)
     input("Tekan enter untuk melanjutkan...")
 
+def urutkanLaporanDescending():
+    clear()
+    ambilDataLaporan()
+    daftarID = []
+    current = laporanLinkedList.head
+    while current:
+        daftarID.append(current.data["ID_Laporan"])
+        current = current.next
+    
+    daftarIDTerurut = laporanLinkedList.quickSortDescending(daftarID)
+    
+    tabel = PrettyTable()
+    tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan", "Status Laporan", "Respon Admin"]
 
+    for idLaporan in daftarIDTerurut:
+        node = laporanLinkedList.jumpSearchID(idLaporan, "laporan")
+        if node:
+            data = node.data
+            tabel.add_row([data["ID_Laporan"], data["ID_User"], data["Isi_Laporan"], data["Lokasi_Laporan"], data["status_laporan"], data["respon_admin"]])
+    
+    clear()
+    print(tabel)
+    input("Tekan enter untuk melanjutkan...")
 
 # Tugas
 
@@ -666,6 +717,35 @@ def menuCariTugas():
             break
 
 def menuUrutkanTugas():
+    while True:
+        clear()
+        print("+=================+")
+        print("|  Urutkan Tugas  |")
+        print("+=================+")
+        print("| [1]. Ascending  |")
+        print("| [2]. Descending |")
+        print("| [3]. Keluar     |")
+        print("+=================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan: "))
+            if pilihan == 1:
+                urutkanTugas()
+            elif pilihan == 2:
+                urutkanTugasDescending()
+            elif pilihan == 3:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+def urutkanTugas():
     clear()
     ambilDataTugas()
     daftarID = []
@@ -675,6 +755,30 @@ def menuUrutkanTugas():
         current = current.next
 
     daftarIDTerurut = tugasLinkedList.quickSort(daftarID)
+
+    tabel = PrettyTable()
+    tabel.field_names = ["ID Tugas", "ID Admin", "ID Anggota", "Tugas Laporan", "Lokasi Laporan", "Status Tugas"]
+
+    for idTugas in daftarIDTerurut:
+        node = tugasLinkedList.jumpSearchID(idTugas, "tugas")
+        if node:
+            data = node.data
+            tabel.add_row([data["ID_Tugas"], data["ID_Admin"], data["ID_Anggota"], data["Tugas_Laporan"], data["Lokasi_Laporan"], data["status_tugas"]])
+
+    clear()
+    print(tabel)
+    input("Tekan enter untuk melanjutkan...")
+
+def urutkanTugasDescending():
+    clear()
+    ambilDataTugas()
+    daftarID = []
+    current = tugasLinkedList.head
+    while current:
+        daftarID.append(current.data["ID_Tugas"])
+        current = current.next
+
+    daftarIDTerurut = tugasLinkedList.quickSortDescending(daftarID)
 
     tabel = PrettyTable()
     tabel.field_names = ["ID Tugas", "ID Admin", "ID Anggota", "Tugas Laporan", "Lokasi Laporan", "Status Tugas"]

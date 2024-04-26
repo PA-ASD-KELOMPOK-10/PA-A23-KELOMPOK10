@@ -30,6 +30,17 @@ class LinkedList:
 
             return self.quickSort(less_than_pivot) + [pivot] + self.quickSort(greater_than_pivot)
 
+    def quickSortDescending(self, data):
+        if len(data) <= 1:
+            return data
+        else:
+            pivot = data[0]
+
+            less_than_pivot = [x for x in data[1:] if x >= pivot]
+            greater_than_pivot = [x for x in data[1:] if x < pivot]
+
+            return self.quickSortDescending(less_than_pivot) + [pivot] + self.quickSortDescending(greater_than_pivot)
+
     def jumpSearchID(self, id, tipe):
         current = self.head
         daftarId = []
