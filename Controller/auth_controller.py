@@ -89,56 +89,114 @@ def daftar():
         print("+=================+")
         try:
             email = str(input("Masukkan Email: "))
-            if cekFormatEmail(email):
-                if not cekEmailUser(email):
-                    password = str(input("Masukkan Password: "))
-                    if len(password) <= 255:
-                        nama = str(input("Masukkan Nama: "))
-                        if len(nama) <= 255:
-                            alamat = str(input("Masukkan Alamat: "))
-                            if len(alamat) <= 100:
-                                noHP = str(input("Masukkan Nomor HP: "))
-                                if len(noHP) <= 20:
-                                    query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
-                                    cursor.execute(query, (nama, password, email, alamat, noHP))
-                                    db.commit()
-                                    pesan = f"| Akun Dengan Nama {nama} Berhasil Terdaftar |"
-                                    print("+" + "=" * (len(pesan) - 2) + "+")
-                                    print(pesan)
-                                    print("+" + "=" * (len(pesan) - 2) + "+")
-                                    input("Tekan enter untuk melanjutkan...")
-                                    cursor.fetchall()
-                                    break
+            if email.strip():
+                if cekFormatEmail(email):
+                    if len(email) <= 100:
+                        if not cekEmailUser(email):
+                            password = str(input("Masukkan Password: "))
+                            if password.strip():
+                                if len(password) <= 255:
+                                    nama = str(input("Masukkan Nama: "))
+                                    if nama.strip():
+                                        if len(nama) <= 255:
+                                            alamat = str(input("Masukkan Alamat: "))
+                                            if alamat.strip():
+                                                if len(alamat) <= 100:
+                                                    noHP = str(input("Masukkan Nomor HP: "))
+                                                    if noHP.strip():
+                                                        if cekFormatNomorHP(noHP):
+                                                            if len(noHP) <= 13:
+                                                                query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
+                                                                cursor.execute(query, (nama, password, email, alamat, noHP))
+                                                                db.commit()
+                                                                pesan = f"| Akun Dengan Nama {nama} Berhasil Terdaftar |"
+                                                                print("+" + "=" * (len(pesan) - 2) + "+")
+                                                                print(pesan)
+                                                                print("+" + "=" * (len(pesan) - 2) + "+")
+                                                                input("Tekan enter untuk melanjutkan...")
+                                                                cursor.fetchall()
+                                                                break
+                                                            else:
+                                                                clear()
+                                                                print("+=============================================+")
+                                                                print("| Nomor HP Tidak Boleh Lebih Dari 13 Karakter |")
+                                                                print("+=============================================+")
+                                                                input("Tekan enter untuk melanjutkan...") 
+                                                        else:
+                                                            clear()
+                                                            print("+====================+")
+                                                            print("| Format Email Salah |")
+                                                            print("+====================+")
+                                                            input("Tekan enter untuk melanjutkan...")
+                                                    else:
+                                                        clear()
+                                                        print("==============================+")
+                                                        print("| Nomor HP Tidak Boleh Kosong |")
+                                                        print("==============================+")
+                                                        input("Tekan enter untuk melanjutkan...") 
+                                                else:
+                                                    clear()
+                                                    print("+===========================================+")
+                                                    print("| Alamat Tidak Boleh Lebih Dari 100 Karakter |")
+                                                    print("+===========================================+")
+                                                    input("Tekan enter untuk melanjutkan...") 
+                                            else:
+                                                clear()
+                                                print("+===========================+")
+                                                print("| Alamat Tidak Boleh Kosong |")
+                                                print("+===========================+")
+                                                input("Tekan enter untuk melanjutkan...") 
+                                        else:
+                                            clear()
+                                            print("+==========================================+")
+                                            print("| Nama Tidak Boleh Lebih Dari 255 Karakter |")
+                                            print("+==========================================+")
+                                            input("Tekan enter untuk melanjutkan...") 
+                                    else:
+                                        clear()
+                                        print("+=========================+")
+                                        print("| Nama Tidak Boleh Kosong |")
+                                        print("+=========================+")
+                                        input("Tekan enter untuk melanjutkan...")
                                 else:
                                     clear()
-                                    print("+=============================================+")
-                                    print("| Nomor HP Tidak Boleh Lebih Dari 20 Karakter |")
-                                    print("+=============================================+")
-                                    input("Tekan enter untuk melanjutkan...") 
+                                    print("+==============================================+")
+                                    print("| Password Tidak Boleh Lebih Dari 255 Karakter |")
+                                    print("+==============================================+")
+                                    input("Tekan enter untuk melanjutkan...")
                             else:
                                 clear()
-                                print("+===========================================+")
-                                print("| Alamat Tidak Boleh Lebih Dari 100 Karakter |")
-                                print("+===========================================+")
-                                input("Tekan enter untuk melanjutkan...") 
+                                print("+=============================+")
+                                print("| Password Tidak Boleh Kosong |")
+                                print("+=============================+")
+                                input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+=============================+")
+                            print("| Email Sudah Ada Di Database |")
+                            print("+=============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                            break
                     else:
                         clear()
-                        print("+==========================================+")
-                        print("| Nama Tidak Boleh Lebih Dari 255 Karakter |")
-                        print("+==========================================+")
+                        print("+===========================================+")
+                        print("| Email Tidak Boleh Lebih Dari 100 Karakter |")
+                        print("+===========================================+")
                         input("Tekan enter untuk melanjutkan...")
+                        break
                 else:
                     clear()
-                    print("+=============================+")
-                    print("| Email Sudah Ada Di Database |")
-                    print("+=============================+")
+                    print("+====================+")
+                    print("| Format Email Salah |")
+                    print("+====================+")
                     input("Tekan enter untuk melanjutkan...")
                     break
             else:
                 clear()
-                print("+====================+")
-                print("| Format Email Salah |")
-                print("+====================+")
+                print("+==========================+")
+                print("| Email Tidak Boleh Kosong |")
+                print("+==========================+")
+                input("Tekan enter untuk melanjutkan...")
                 break
         except:
             print("+===========================+")
@@ -272,3 +330,10 @@ def ambilNamaUser(email, password):
 def cekFormatEmail(email):
     pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     return bool(re.match(pattern, email))
+
+def cekFormatNomorHP(noHP):
+    pattern = r"^08[0-9]+$"
+    if re.match(pattern, noHP):
+        return True
+    else:
+        return False

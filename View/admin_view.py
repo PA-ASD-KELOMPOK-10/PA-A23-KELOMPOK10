@@ -14,17 +14,24 @@ def menuAdmin():
         print("| [2]. Tugas           |")
         print("| [3]. Keluar          |")
         print("+======================+")
-        pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
-        if pilihan == 1:
-            menuAdminLaporan()
-        elif pilihan == 2:
-            menuAdminTugas()
-        elif pilihan == 3:
-            break
-        else:
-            print("+==============================+")
-            print("| Inputan Tidak Ada Di Pilihan |")
-            print("+==============================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
+            if pilihan == 1:
+                menuAdminLaporan()
+            elif pilihan == 2:
+                menuAdminTugas()
+            elif pilihan == 3:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
 def menuAdminLaporan():
@@ -142,6 +149,7 @@ def menuTampilkanLaporan():
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")

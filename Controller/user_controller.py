@@ -14,37 +14,44 @@ def menuBuatLaporan(nama):
         print("+==============+")
         print("| Menu Laporan |")
         print("+==============+")
-        idUser = simpanIDUser(nama)
-        isiLaporan = str(input("Masukkan Isi Laporan: "))
-        if len(isiLaporan) <= 500:
-            lokasiLaporan = str(input("Masukkan Lokasi: "))
-            if len(lokasiLaporan) <= 100:
-                try:
-                    query = "INSERT INTO laporan (ID_User, Isi_Laporan, Lokasi_Laporan) VALUES (%s, %s, %s)"
-                    cursor.execute(query, (idUser, isiLaporan, lokasiLaporan))
-                    db.commit()
+        try:
+            idUser = simpanIDUser(nama)
+            isiLaporan = str(input("Masukkan Isi Laporan: "))
+            if len(isiLaporan) <= 500:
+                lokasiLaporan = str(input("Masukkan Lokasi: "))
+                if len(lokasiLaporan) <= 100:
+                    try:
+                        query = "INSERT INTO laporan (ID_User, Isi_Laporan, Lokasi_Laporan) VALUES (%s, %s, %s)"
+                        cursor.execute(query, (idUser, isiLaporan, lokasiLaporan))
+                        db.commit()
+                        clear()
+                        print("+==========================+")
+                        print("| Laporan Berhasil Dibuat! |")
+                        print("+==========================+")
+                        input("Tekan enter untuk melanjutkan...")
+                        break
+                    except mysql.connector.Error as err:
+                        print(f"Error MySQL: {err.msg}")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
                     clear()
-                    print("+==========================+")
-                    print("| Laporan Berhasil Dibuat! |")
-                    print("+==========================+")
-                    input("Tekan enter untuk melanjutkan...")
-                    break
-                except mysql.connector.Error as err:
-                    print(f"Error MySQL: {err.msg}")
-                    input("Tekan enter untuk melanjutkan...")
+                    print("+====================================================+")
+                    print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                    print("+====================================================+")
+                    input("Tekan enter untuk melanjutkan...") 
+                    cursor.fetchall()
             else:
-                clear()
-                print("+====================================================+")
-                print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                print("+====================================================+")
+                print("+=================================================+")
+                print("| Isi Laporan Tidak Boleh Lebih Dari 500 Karakter |")
+                print("+=================================================+")
                 input("Tekan enter untuk melanjutkan...") 
                 cursor.fetchall()
-        else:
-            print("+=================================================+")
-            print("| Isi Laporan Tidak Boleh Lebih Dari 500 Karakter |")
-            print("+=================================================+")
-            input("Tekan enter untuk melanjutkan...") 
-            cursor.fetchall()
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
 
 def menuCekLaporan(nama):
     clear()

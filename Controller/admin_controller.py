@@ -23,52 +23,59 @@ def menuBuatLaporan():
         print("+==============+")
         print("| Buat Laporan |")
         print("+==============+")
-        idUser = int(input("Masukkan ID User: "))
-        if cekIDUser(idUser):
-            isiLaporan = str(input("Masukkan Isi Laporan: "))
-            if len(isiLaporan) <= 500:
-                if isiLaporan.strip():
-                    lokasiLaporan = str(input("Masukkan Lokasi Laporan: "))
-                    if len(lokasiLaporan) <= 100:
-                        if lokasiLaporan.strip():
-                            query = "INSERT INTO laporan (ID_User, Isi_Laporan, Lokasi_Laporan) VALUES (%s, %s, %s)"
-                            cursor.execute(query, (idUser, isiLaporan, lokasiLaporan))
-                            db.commit()
-                            clear()
-                            print("+=========================+")
-                            print("| Laporan Berhasil Dibuat |")
-                            print("+=========================+")
-                            break
+        try:
+            idUser = int(input("Masukkan ID User: "))
+            if cekIDUser(idUser):
+                isiLaporan = str(input("Masukkan Isi Laporan: "))
+                if len(isiLaporan) <= 500:
+                    if isiLaporan.strip():
+                        lokasiLaporan = str(input("Masukkan Lokasi Laporan: "))
+                        if len(lokasiLaporan) <= 100:
+                            if lokasiLaporan.strip():
+                                query = "INSERT INTO laporan (ID_User, Isi_Laporan, Lokasi_Laporan) VALUES (%s, %s, %s)"
+                                cursor.execute(query, (idUser, isiLaporan, lokasiLaporan))
+                                db.commit()
+                                clear()
+                                print("+=========================+")
+                                print("| Laporan Berhasil Dibuat |")
+                                print("+=========================+")
+                                break
+                            else:
+                                clear()
+                                print("+===================================+")
+                                print("| Lokasi Laporan Tidak Boleh Kosong |")
+                                print("+===================================+")
+                                input("Tekan enter untuk melanjutkan...")
                         else:
                             clear()
-                            print("+===================================+")
-                            print("| Lokasi Laporan Tidak Boleh Kosong |")
-                            print("+===================================+")
+                            print("+====================================================+")
+                            print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+====================================================+")
                             input("Tekan enter untuk melanjutkan...")
                     else:
                         clear()
-                        print("+====================================================+")
-                        print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                        print("+====================================================+")
+                        print("+================================+")
+                        print("| Isi Laporan Tidak Boleh Kosong |")
+                        print("+================================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
                     clear()
-                    print("+================================+")
-                    print("| Isi Laporan Tidak Boleh Kosong |")
-                    print("+================================+")
+                    print("+=================================================+")
+                    print("| Isi Laporan Tidak Boleh Lebih Dari 500 Karakter |")
+                    print("+=================================================+")
                     input("Tekan enter untuk melanjutkan...")
+
             else:
                 clear()
-                print("+=================================================+")
-                print("| Isi Laporan Tidak Boleh Lebih Dari 500 Karakter |")
-                print("+=================================================+")
+                print("+===============================+")
+                print("| ID User Tidak Ada Di Database |")
+                print("+===============================+")
                 input("Tekan enter untuk melanjutkan...")
-
-        else:
+        except:
             clear()
-            print("+===============================+")
-            print("| ID User Tidak Ada Di Database |")
-            print("+===============================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
 def tampilkanLaporan(laporan):
@@ -138,195 +145,208 @@ def menuPerbaruiLaporan():
         print("| [5]. Perbarui Respon Admin       |")
         print("| [6]. Keluar                      |")
         print("+==================================+")
-        pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6]: "))
-        if pilihan == 1:
-            idLaporan = int(input("Masukkan ID Laporan: "))
-            if cekIDLaporan(idLaporan):
-                idUser = int(input("Masukkan ID User Yang Baru: "))
-                if str(idUser).strip():
-                    if cekIDUser(idUser):
-                        query = "UPDATE laporan SET ID_User = %s WHERE ID_Laporan = %s"
-                        cursor.execute(query, (idUser, idLaporan))
-                        clear()
-                        print("+=========================+")
-                        print("| ID User Berhasil Dibuah |")
-                        print("+=========================+")
-                        input("Tekan enter untuk melanjutkan...")
+        try:
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6]: "))
+            if pilihan == 1:
+                idLaporan = int(input("Masukkan ID Laporan: "))
+                if cekIDLaporan(idLaporan):
+                    idUser = int(input("Masukkan ID User Yang Baru: "))
+                    if str(idUser).strip():
+                        if cekIDUser(idUser):
+                            query = "UPDATE laporan SET ID_User = %s WHERE ID_Laporan = %s"
+                            cursor.execute(query, (idUser, idLaporan))
+                            clear()
+                            print("+=========================+")
+                            print("| ID User Berhasil Dibuah |")
+                            print("+=========================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+======================================+")
+                            print("|  ID User Tidak Ditemukan Di Database |")
+                            print("+======================================+")
+                            input("Tekan enter untuk melanjutkan...")
                     else:
                         clear()
-                        print("+======================================+")
-                        print("|  ID User Tidak Ditemukan Di Database |")
-                        print("+======================================+")
+                        print("+=======================+")
+                        print("| ID Tidak Boleh Kosong |")
+                        print("+=======================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
                     clear()
-                    print("+=======================+")
-                    print("| ID Tidak Boleh Kosong |")
-                    print("+=======================+")
+                    print("+========================================+")
+                    print("| ID Laporan Tidak Ditemukan Di Database |")
+                    print("+========================================+")
                     input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+========================================+")
-                print("| ID Laporan Tidak Ditemukan Di Database |")
-                print("+========================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 2:
-            idLaporan = int(input("Masukkan ID Laporan: "))
-            if cekIDLaporan(idLaporan):
-                isiLaporan = str(input("Masukkan Isi Laporan Yang Baru: "))
-                if isiLaporan.strip():
-                    if len(isiLaporan) <= 500:
-                        query = "UPDATE laporan SET Isi_Laporan = %s WHERE ID_Laporan = %s"
-                        cursor.execute(query, (isiLaporan, idLaporan))
-                        clear()
-                        print("+=============================+")
-                        print("| Isi Laporan Berhasil Dibuah |")
-                        print("+=============================+")
-                        input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 2:
+                idLaporan = int(input("Masukkan ID Laporan: "))
+                if cekIDLaporan(idLaporan):
+                    isiLaporan = str(input("Masukkan Isi Laporan Yang Baru: "))
+                    if isiLaporan.strip():
+                        if len(isiLaporan) <= 500:
+                            query = "UPDATE laporan SET Isi_Laporan = %s WHERE ID_Laporan = %s"
+                            cursor.execute(query, (isiLaporan, idLaporan))
+                            clear()
+                            print("+=============================+")
+                            print("| Isi Laporan Berhasil Dibuah |")
+                            print("+=============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+==================================================+")
+                            print("|  Isi Laporan Tidak Boleh Lebih Dari 500 Karakter |")
+                            print("+==================================================+")
+                            input("Tekan enter untuk melanjutkan...")
                     else:
-                        clear()
-                        print("+==================================================+")
-                        print("|  Isi Laporan Tidak Boleh Lebih Dari 500 Karakter |")
-                        print("+==================================================+")
-                        input("Tekan enter untuk melanjutkan...")
-                else:
-                    clear()
-                    print("+================================+")
-                    print("| Isi Laporan Tidak Boleh Kosong |")
-                    print("+================================+")
-                    input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+========================================+")
-                print("| ID Laporan Tidak Ditemukan Di Database |")
-                print("+========================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 3:
-            idLaporan = int(input("Masukkan ID Laporan: "))
-            if cekIDLaporan(idLaporan):
-                lokasiLaporan = str(input("Masukkan Lokasi Laporan Yang Baru: "))
-                if lokasiLaporan.strip():
-                    if len(lokasiLaporan) <= 100:
-                        query = "UPDATE laporan SET Lokasi_Laporan = %s WHERE ID_Laporan = %s"
-                        cursor.execute(query, (lokasiLaporan, idLaporan))
                         clear()
                         print("+================================+")
-                        print("| Lokasi Laporan Berhasil Dibuah |")
+                        print("| Isi Laporan Tidak Boleh Kosong |")
                         print("+================================+")
-                        input("Tekan enter untuk melanjutkan...")
-                    else:
-                        clear()
-                        print("+=====================================================+")
-                        print("|  Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                        print("+=====================================================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
                     clear()
-                    print("+===================================+")
-                    print("| Lokasi Laporan Tidak Boleh Kosong |")
-                    print("+===================================+")
+                    print("+========================================+")
+                    print("| ID Laporan Tidak Ditemukan Di Database |")
+                    print("+========================================+")
                     input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+========================================+")
-                print("| ID Laporan Tidak Ditemukan Di Database |")
-                print("+========================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 4:
-            idLaporan = int(input("Masukkan ID Laporan: "))
-            if cekIDLaporan(idLaporan):
-                statusLaporan = str(input("Masukkan Status Laporan Yang Baru: "))
-                if statusLaporan.strip():
-                    if len(statusLaporan) <= 255:
-                        query = "UPDATE laporan SET status_laporan = %s WHERE ID_Laporan = %s"
-                        cursor.execute(query, (statusLaporan, idLaporan))
-                        clear()
-                        print("+================================+")
-                        print("| Status Laporan Berhasil Dibuah |")
-                        print("+================================+")
-                        input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 3:
+                idLaporan = int(input("Masukkan ID Laporan: "))
+                if cekIDLaporan(idLaporan):
+                    lokasiLaporan = str(input("Masukkan Lokasi Laporan Yang Baru: "))
+                    if lokasiLaporan.strip():
+                        if len(lokasiLaporan) <= 100:
+                            query = "UPDATE laporan SET Lokasi_Laporan = %s WHERE ID_Laporan = %s"
+                            cursor.execute(query, (lokasiLaporan, idLaporan))
+                            clear()
+                            print("+================================+")
+                            print("| Lokasi Laporan Berhasil Dibuah |")
+                            print("+================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+=====================================================+")
+                            print("|  Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+=====================================================+")
+                            input("Tekan enter untuk melanjutkan...")
                     else:
                         clear()
-                        print("+=====================================================+")
-                        print("|  Status Laporan Tidak Boleh Lebih Dari 255 Karakter |")
-                        print("+=====================================================+")
+                        print("+===================================+")
+                        print("| Lokasi Laporan Tidak Boleh Kosong |")
+                        print("+===================================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
                     clear()
-                    print("+===================================+")
-                    print("| Status Laporan Tidak Boleh Kosong |")
-                    print("+===================================+")
+                    print("+========================================+")
+                    print("| ID Laporan Tidak Ditemukan Di Database |")
+                    print("+========================================+")
                     input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+========================================+")
-                print("| ID Laporan Tidak Ditemukan Di Database |")
-                print("+========================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 5:
-            idLaporan = int(input("Masukkan ID Laporan: "))
-            if cekIDLaporan(idLaporan):
-                responAdmin = str(input("Masukkan Respon Laporan Yang Baru: "))
-                if responAdmin.strip():
-                    if len(responAdmin) <= 255:
-                        query = "UPDATE laporan SET respon_admin = %s WHERE ID_Laporan = %s"
-                        cursor.execute(query, (responAdmin, idLaporan))
-                        clear()
-                        print("+==============================+")
-                        print("| Respon Admin Berhasil Dibuah |")
-                        print("+==============================+")
-                        input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 4:
+                idLaporan = int(input("Masukkan ID Laporan: "))
+                if cekIDLaporan(idLaporan):
+                    statusLaporan = str(input("Masukkan Status Laporan Yang Baru: "))
+                    if statusLaporan.strip():
+                        if len(statusLaporan) <= 255:
+                            query = "UPDATE laporan SET status_laporan = %s WHERE ID_Laporan = %s"
+                            cursor.execute(query, (statusLaporan, idLaporan))
+                            clear()
+                            print("+================================+")
+                            print("| Status Laporan Berhasil Dibuah |")
+                            print("+================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+=====================================================+")
+                            print("|  Status Laporan Tidak Boleh Lebih Dari 255 Karakter |")
+                            print("+=====================================================+")
+                            input("Tekan enter untuk melanjutkan...")
                     else:
                         clear()
-                        print("+===================================================+")
-                        print("|  Respon Admin Tidak Boleh Lebih Dari 255 Karakter |")
-                        print("+===================================================+")
+                        print("+===================================+")
+                        print("| Status Laporan Tidak Boleh Kosong |")
+                        print("+===================================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
                     clear()
-                    print("+=================================+")
-                    print("| Respon Admin Tidak Boleh Kosong |")
-                    print("+=================================+")
+                    print("+========================================+")
+                    print("| ID Laporan Tidak Ditemukan Di Database |")
+                    print("+========================================+")
                     input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 5:
+                idLaporan = int(input("Masukkan ID Laporan: "))
+                if cekIDLaporan(idLaporan):
+                    responAdmin = str(input("Masukkan Respon Laporan Yang Baru: "))
+                    if responAdmin.strip():
+                        if len(responAdmin) <= 255:
+                            query = "UPDATE laporan SET respon_admin = %s WHERE ID_Laporan = %s"
+                            cursor.execute(query, (responAdmin, idLaporan))
+                            clear()
+                            print("+==============================+")
+                            print("| Respon Admin Berhasil Dibuah |")
+                            print("+==============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+===================================================+")
+                            print("|  Respon Admin Tidak Boleh Lebih Dari 255 Karakter |")
+                            print("+===================================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                    else:
+                        clear()
+                        print("+=================================+")
+                        print("| Respon Admin Tidak Boleh Kosong |")
+                        print("+=================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+======================================+")
+                    print("| ID Admin Tidak Ditemukan Di Database |")
+                    print("+======================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 6:
+                break
             else:
                 clear()
-                print("+======================================+")
-                print("| ID Admin Tidak Ditemukan Di Database |")
-                print("+======================================+")
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 6:
-            break
-        else:
+        except:
             clear()
-            print("+==============================+")
-            print("| Inputan Tidak Ada Di Pilihan |")
-            print("+==============================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-
 def menuHapusLaporan():
     while True:
         clear()
         print("+=================+")
         print("|  Hapus Laporan  |")
         print("+=================+")
-        idLaporan = int(input("Masukkan ID Laporan Yang Ingin Dihapus: "))
-        if cekIDLaporan(idLaporan):
-            query = "DELETE FROM laporan WHERE ID_Laporan = %s"
-            cursor.execute(query, (idLaporan, ))
-            db.commit()
+        try:
+            idLaporan = int(input("Masukkan ID Laporan Yang Ingin Dihapus: "))
+            if cekIDLaporan(idLaporan):
+                query = "DELETE FROM laporan WHERE ID_Laporan = %s"
+                cursor.execute(query, (idLaporan, ))
+                db.commit()
+                clear()
+                print("+==========================+")
+                print("| Laporan Berhasil Dihapus |")
+                print("+==========================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+            else:
+                clear()
+                print("+========================================+")
+                print("| ID Laporan Tidak Ditemukan Di Database |")
+                print("+========================================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
             clear()
-            print("+==========================+")
-            print("| Laporan Berhasil Dihapus |")
-            print("+==========================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-            break
-        else:
-            clear()
-            print("+========================================+")
-            print("| ID Laporan Tidak Ditemukan Di Database |")
-            print("+========================================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
 
 def menuCariLaporan():
     while True:
@@ -334,29 +354,36 @@ def menuCariLaporan():
         print("+==============+")
         print("| Cari Laporan |")
         print("+==============+")
-        idLaporan = int(input("Masukkan ID Laporan Yang Ingin Dicari: "))
-        node = laporanLinkedList.jumpSearchID(idLaporan, "laporan")
-        if node:
+        try:
+            idLaporan = int(input("Masukkan ID Laporan Yang Ingin Dicari: "))
+            node = laporanLinkedList.jumpSearchID(idLaporan, "laporan")
+            if node:
+                clear()
+                print("+===================+")
+                print("| Laporan Ditemukan |")
+                print("+===================+")
+                input("Tekan enter untuk melanjutkan...")
+                clear()
+                dataLaporan = node.data
+                tabel = PrettyTable()
+                tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan"]
+                tabel.add_row([dataLaporan["ID_Laporan"], dataLaporan["ID_User"], dataLaporan["Isi_Laporan"], dataLaporan["Lokasi_Laporan"]])
+                print(tabel)
+                input("Tekan enter untuk melanjutkan...")
+                break
+            else:
+                clear()
+                print("+============================+")
+                print("| ID Laporan Tidak Ditemukan |")
+                print("+============================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
             clear()
-            print("+===================+")
-            print("| Laporan Ditemukan |")
-            print("+===================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-            clear()
-            dataLaporan = node.data
-            tabel = PrettyTable()
-            tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan"]
-            tabel.add_row([dataLaporan["ID_Laporan"], dataLaporan["ID_User"], dataLaporan["Isi_Laporan"], dataLaporan["Lokasi_Laporan"]])
-            print(tabel)
-            input("Tekan enter untuk melanjutkan...")
-            break
-        else:
-            clear()
-            print("+============================+")
-            print("| ID Laporan Tidak Ditemukan |")
-            print("+============================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
 
 def menuUrutkanLaporan():
     while True:
@@ -382,6 +409,7 @@ def menuUrutkanLaporan():
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
@@ -433,60 +461,67 @@ def menuBuatTugas():
         print("+==============+")
         print("|  Buat Tugas  |")
         print("+==============+")
-        idAdmin = int(input("Masukkan ID Admin: "))
-        if cekIDAdmin(idAdmin):
-            idAnggota = int(input("Masukkan ID Anggota: "))
-            if cekIDAnggota(idAnggota):
-                tugasLaporan = str(input("Masukkan Tugas Laporan: "))
-                if len(tugasLaporan) <= 100:
-                    if tugasLaporan.strip():
-                        lokasiLaporan = str(input("Masukkan Lokasi Laporan: "))
-                        if len(lokasiLaporan) <= 100:
-                            if lokasiLaporan.strip():
-                                query = "INSERT INTO tugas (ID_Admin, ID_Anggota, Tugas_Laporan, Lokasi_Laporan) VALUES (%s, %s, %s, %s)"
-                                cursor.execute(query, (idAdmin, idAnggota, tugasLaporan, lokasiLaporan))
-                                db.commit()
-                                clear()
-                                print("+=======================+")
-                                print("| Tugas Berhasil Dibuat |")
-                                print("+=======================+")
-                                input("Tekan enter untuk melanjutkan...")
-                                break
+        try:
+            idAdmin = int(input("Masukkan ID Admin: "))
+            if cekIDAdmin(idAdmin):
+                idAnggota = int(input("Masukkan ID Anggota: "))
+                if cekIDAnggota(idAnggota):
+                    tugasLaporan = str(input("Masukkan Tugas Laporan: "))
+                    if len(tugasLaporan) <= 100:
+                        if tugasLaporan.strip():
+                            lokasiLaporan = str(input("Masukkan Lokasi Laporan: "))
+                            if len(lokasiLaporan) <= 100:
+                                if lokasiLaporan.strip():
+                                    query = "INSERT INTO tugas (ID_Admin, ID_Anggota, Tugas_Laporan, Lokasi_Laporan) VALUES (%s, %s, %s, %s)"
+                                    cursor.execute(query, (idAdmin, idAnggota, tugasLaporan, lokasiLaporan))
+                                    db.commit()
+                                    clear()
+                                    print("+=======================+")
+                                    print("| Tugas Berhasil Dibuat |")
+                                    print("+=======================+")
+                                    input("Tekan enter untuk melanjutkan...")
+                                    break
+                                else:
+                                    clear()
+                                    print("+===================================+")
+                                    print("| Lokasi Laporan Tidak Boleh Kosong |")
+                                    print("+===================================+")
+                                    input("Tekan enter untuk melanjutkan...")
                             else:
                                 clear()
-                                print("+===================================+")
-                                print("| Lokasi Laporan Tidak Boleh Kosong |")
-                                print("+===================================+")
+                                print("+====================================================+")
+                                print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                                print("+====================================================+")
                                 input("Tekan enter untuk melanjutkan...")
                         else:
                             clear()
-                            print("+====================================================+")
-                            print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                            print("+====================================================+")
+                            print("+==================================+")
+                            print("| Tugas Laporan Tidak Boleh Kosong |")
+                            print("+==================================+")
                             input("Tekan enter untuk melanjutkan...")
                     else:
                         clear()
-                        print("+==================================+")
-                        print("| Tugas Laporan Tidak Boleh Kosong |")
-                        print("+==================================+")
+                        print("+===================================================+")
+                        print("| Tugas Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                        print("+===================================================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
                     clear()
-                    print("+===================================================+")
-                    print("| Tugas Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                    print("+===================================================+")
+                    print("+==================================+")
+                    print("| ID Anggota Tidak Ada Di Database |")
+                    print("+==================================+")
                     input("Tekan enter untuk melanjutkan...")
             else:
                 clear()
-                print("+==================================+")
-                print("| ID Anggota Tidak Ada Di Database |")
-                print("+==================================+")
+                print("+================================+")
+                print("| ID Admin Tidak Ada Di Database |")
+                print("+================================+")
                 input("Tekan enter untuk melanjutkan...")
-        else:
+        except:
             clear()
-            print("+================================+")
-            print("| ID Admin Tidak Ada Di Database |")
-            print("+================================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
 def menuTampilkanTugas():
@@ -511,6 +546,7 @@ def menuTampilkanTugas():
             else:
                 break
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
@@ -570,180 +606,187 @@ def menuPerbaruiTugas():
         print("| [5]. Perbarui Status Laporan        |")
         print("| [6]. Keluar                         |")
         print("+=====================================+")
-        pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6]: "))
-        if pilihan == 1:
-            idTugas = int(input("Masukkan ID Tugas: "))
-            if cekIDTugas(idTugas):
-                idAdmin = int(input("Masukkan ID Admin Yang Baru: "))
-                if str(idAdmin).strip():
-                    if len(str(idAdmin)) <= 11:
-                        if cekIDAdmin(idAdmin):
-                            query = "UPDATE tugas SET ID_Admin = %s WHERE ID_Tugas = %s"
-                            cursor.execute(query, (idAdmin, idTugas))
-                            db.commit()
-                            clear()
-                            print("+==========================+")
-                            print("| ID Admin Berhasil Diubah |")
-                            print("+==========================+")
-                            input("Tekan enter untuk melanjutkan...")
+        try:
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6]: "))
+            if pilihan == 1:
+                idTugas = int(input("Masukkan ID Tugas: "))
+                if cekIDTugas(idTugas):
+                    idAdmin = int(input("Masukkan ID Admin Yang Baru: "))
+                    if str(idAdmin).strip():
+                        if len(str(idAdmin)) <= 11:
+                            if cekIDAdmin(idAdmin):
+                                query = "UPDATE tugas SET ID_Admin = %s WHERE ID_Tugas = %s"
+                                cursor.execute(query, (idAdmin, idTugas))
+                                db.commit()
+                                clear()
+                                print("+==========================+")
+                                print("| ID Admin Berhasil Diubah |")
+                                print("+==========================+")
+                                input("Tekan enter untuk melanjutkan...")
+                            else:
+                                clear()
+                                print("+======================================+")
+                                print("| ID Admin Tidak Ditemukan Di Database |")
+                                print("+======================================+")
+                                input("Tekan enter untuk melanjutkan...")
                         else:
                             clear()
-                            print("+======================================+")
-                            print("| ID Admin Tidak Ditemukan Di Database |")
-                            print("+======================================+")
+                            print("+=============================================+")
+                            print("| ID Admin Tidak Boleh Lebih Dari 11 Karakter |")
+                            print("+=============================================+")
                             input("Tekan enter untuk melanjutkan...")
                     else:
-                        clear()
-                        print("+=============================================+")
-                        print("| ID Admin Tidak Boleh Lebih Dari 11 Karakter |")
-                        print("+=============================================+")
+                        print("+=============================+")
+                        print("| ID Admin Tidak Boleh Kosong |")
+                        print("+=============================+")
                         input("Tekan enter untuk melanjutkan...")
                 else:
-                    print("+=============================+")
-                    print("| ID Admin Tidak Boleh Kosong |")
-                    print("+=============================+")
+                    clear()
+                    print("+======================================+")
+                    print("| ID Tugas Tidak Ditemukan Di Database |")
+                    print("+======================================+")
                     input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+======================================+")
-                print("| ID Tugas Tidak Ditemukan Di Database |")
-                print("+======================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 2:
-            idTugas = int(input("Masukkan ID Tugas: "))
-            if cekIDTugas(idTugas):
-                idAnggota = int(input("Masukkan ID Anggota Yang Baru: "))
-                if str(idAnggota).strip():
-                    if len(str(idAnggota)) <= 11:
-                        if cekIDAnggota(idAnggota):
-                            query = "UPDATE tugas SET ID_Anggota = %s WHERE ID_Tugas = %s"
-                            cursor.execute(query, (idAnggota, idTugas))
-                            db.commit()
-                            clear()
-                            print("+============================+")
-                            print("| ID Anggota Berhasil Diubah |")
-                            print("+============================+")
-                            input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 2:
+                idTugas = int(input("Masukkan ID Tugas: "))
+                if cekIDTugas(idTugas):
+                    idAnggota = int(input("Masukkan ID Anggota Yang Baru: "))
+                    if str(idAnggota).strip():
+                        if len(str(idAnggota)) <= 11:
+                            if cekIDAnggota(idAnggota):
+                                query = "UPDATE tugas SET ID_Anggota = %s WHERE ID_Tugas = %s"
+                                cursor.execute(query, (idAnggota, idTugas))
+                                db.commit()
+                                clear()
+                                print("+============================+")
+                                print("| ID Anggota Berhasil Diubah |")
+                                print("+============================+")
+                                input("Tekan enter untuk melanjutkan...")
+                            else:
+                                clear()
+                                print("+======================================+")
+                                print("| ID Anggota Tidak Ditemukan Di Database |")
+                                print("+======================================+")
+                                input("Tekan enter untuk melanjutkan...")
                         else:
                             clear()
-                            print("+======================================+")
-                            print("| ID Anggota Tidak Ditemukan Di Database |")
-                            print("+======================================+")
+                            print("+=============================================+")
+                            print("| ID Anggota Tidak Boleh Lebih Dari 11 Karakter |")
+                            print("+=============================================+")
                             input("Tekan enter untuk melanjutkan...")
-                    else:
-                        clear()
-                        print("+=============================================+")
-                        print("| ID Anggota Tidak Boleh Lebih Dari 11 Karakter |")
-                        print("+=============================================+")
-                        input("Tekan enter untuk melanjutkan...")
 
-                else:
-                    print("+=============================+")
-                    print("| ID Anggota Tidak Boleh Kosong |")
-                    print("+=============================+")
-                    input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+======================================+")
-                print("| ID Tugas Tidak Ditemukan Di Database |")
-                print("+======================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 3:
-            idTugas = int(input("Masukkan ID Tugas: "))
-            if cekIDTugas(idTugas):
-                tugasLaporan = str(input("Masukkan Tugas Laporan Yang Baru: "))
-                if tugasLaporan.strip():
-                    if len(tugasLaporan) <= 100:
-                        query = "UPDATE tugas SET Tugas_Laporan = %s WHERE ID_Tugas = %s"
-                        cursor.execute(query, (tugasLaporan, idTugas))
-                        db.commit()
-                        clear()
-                        print("+===============================+")
-                        print("| Tugas Laporan Berhasil Diubah |")
-                        print("+===============================+")
-                        input("Tekan enter untuk melanjutkan...")
                     else:
-                        clear()
-                        print("+===================================================+")
-                        print("| Tugas Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                        print("+===================================================+")
-                else:
-                    print("+==================================+")
-                    print("| Tugas Laporan Tidak Boleh Kosong |")
-                    print("+==================================+")
-                    input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+======================================+")
-                print("| ID Tugas Tidak Ditemukan Di Database |")
-                print("+======================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 4:
-            idTugas = int(input("Masukkan ID Tugas: "))
-            if cekIDTugas(idTugas):
-                lokasiLaporan = str(input("Masukkan Lokasi Laporan Yang Baru: "))
-                if lokasiLaporan.strip():
-                    if len(lokasiLaporan) <= 100:
-                        query = "UPDATE tugas SET Lokasi_Laporan = %s WHERE ID_Tugas = %s"
-                        cursor.execute(query, (lokasiLaporan, idTugas))
-                        db.commit()
-                        clear()
-                        print("+================================+")
-                        print("| Lokasi Laporan Berhasil Diubah |")
-                        print("+================================+")
+                        print("+=============================+")
+                        print("| ID Anggota Tidak Boleh Kosong |")
+                        print("+=============================+")
                         input("Tekan enter untuk melanjutkan...")
-                    else:
-                        clear()
-                        print("+====================================================+")
-                        print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
-                        print("+====================================================+")
                 else:
-                    print("+===================================+")
-                    print("| Lokasi Laporan Tidak Boleh Kosong |")
-                    print("+===================================+")
+                    clear()
+                    print("+======================================+")
+                    print("| ID Tugas Tidak Ditemukan Di Database |")
+                    print("+======================================+")
                     input("Tekan enter untuk melanjutkan...")
-            else:
-                clear()
-                print("+======================================+")
-                print("| ID Tugas Tidak Ditemukan Di Database |")
-                print("+======================================+")
-                input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 5:
-            idTugas = int(input("Masukkan ID Tugas: "))
-            if cekIDTugas(idTugas):
-                statusTugas = str(input("Masukkan Status Tugas Yang Baru: "))
-                if statusTugas.strip():
-                    if len(statusTugas) <= 100:
-                        query = "UPDATE tugas SET status_tugas = %s WHERE ID_Tugas = %s"
-                        cursor.execute(query, (statusTugas, idTugas))
-                        db.commit()
-                        clear()
-                        print("+==============================+")
-                        print("| Status Tugas Berhasil Diubah |")
-                        print("+==============================+")
+            elif pilihan == 3:
+                idTugas = int(input("Masukkan ID Tugas: "))
+                if cekIDTugas(idTugas):
+                    tugasLaporan = str(input("Masukkan Tugas Laporan Yang Baru: "))
+                    if tugasLaporan.strip():
+                        if len(tugasLaporan) <= 100:
+                            query = "UPDATE tugas SET Tugas_Laporan = %s WHERE ID_Tugas = %s"
+                            cursor.execute(query, (tugasLaporan, idTugas))
+                            db.commit()
+                            clear()
+                            print("+===============================+")
+                            print("| Tugas Laporan Berhasil Diubah |")
+                            print("+===============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+===================================================+")
+                            print("| Tugas Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+===================================================+")
+                    else:
+                        print("+==================================+")
+                        print("| Tugas Laporan Tidak Boleh Kosong |")
+                        print("+==================================+")
                         input("Tekan enter untuk melanjutkan...")
-                    else:
-                        clear()
-                        print("+==================================================+")
-                        print("| Status Tugas Tidak Boleh Lebih Dari 100 Karakter |")
-                        print("+==================================================+")
                 else:
-                    print("+=================================+")
-                    print("| Status Tugas Tidak Boleh Kosong |")
-                    print("+=================================+")
+                    clear()
+                    print("+======================================+")
+                    print("| ID Tugas Tidak Ditemukan Di Database |")
+                    print("+======================================+")
                     input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 4:
+                idTugas = int(input("Masukkan ID Tugas: "))
+                if cekIDTugas(idTugas):
+                    lokasiLaporan = str(input("Masukkan Lokasi Laporan Yang Baru: "))
+                    if lokasiLaporan.strip():
+                        if len(lokasiLaporan) <= 100:
+                            query = "UPDATE tugas SET Lokasi_Laporan = %s WHERE ID_Tugas = %s"
+                            cursor.execute(query, (lokasiLaporan, idTugas))
+                            db.commit()
+                            clear()
+                            print("+================================+")
+                            print("| Lokasi Laporan Berhasil Diubah |")
+                            print("+================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+====================================================+")
+                            print("| Lokasi Laporan Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+====================================================+")
+                    else:
+                        print("+===================================+")
+                        print("| Lokasi Laporan Tidak Boleh Kosong |")
+                        print("+===================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+======================================+")
+                    print("| ID Tugas Tidak Ditemukan Di Database |")
+                    print("+======================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 5:
+                idTugas = int(input("Masukkan ID Tugas: "))
+                if cekIDTugas(idTugas):
+                    statusTugas = str(input("Masukkan Status Tugas Yang Baru: "))
+                    if statusTugas.strip():
+                        if len(statusTugas) <= 100:
+                            query = "UPDATE tugas SET status_tugas = %s WHERE ID_Tugas = %s"
+                            cursor.execute(query, (statusTugas, idTugas))
+                            db.commit()
+                            clear()
+                            print("+==============================+")
+                            print("| Status Tugas Berhasil Diubah |")
+                            print("+==============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+==================================================+")
+                            print("| Status Tugas Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+==================================================+")
+                    else:
+                        print("+=================================+")
+                        print("| Status Tugas Tidak Boleh Kosong |")
+                        print("+=================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+======================================+")
+                    print("| ID Tugas Tidak Ditemukan Di Database |")
+                    print("+======================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 6:
+                break
             else:
-                clear()
-                print("+======================================+")
-                print("| ID Tugas Tidak Ditemukan Di Database |")
-                print("+======================================+")
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
-        elif pilihan == 6:
-            break
-        else:
-            print("+==============================+")
-            print("| Inputan Tidak Ada Di Pilihan |")
-            print("+==============================+")
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
 def menuHapusTugas():
@@ -752,24 +795,31 @@ def menuHapusTugas():
         print("+===============+")
         print("|  Hapus Tugas  |")
         print("+===============+")
-        idTugas = int(input("Masukkan ID Tugas Yang Ingin Dihapus: "))
-        if cekIDTugas(idTugas):
-            query = "DELETE FROM tugas WHERE ID_Tugas = %s"
-            cursor.execute(query, (idTugas, ))
-            db.commit()
+        try:
+            idTugas = int(input("Masukkan ID Tugas Yang Ingin Dihapus: "))
+            if cekIDTugas(idTugas):
+                query = "DELETE FROM tugas WHERE ID_Tugas = %s"
+                cursor.execute(query, (idTugas, ))
+                db.commit()
+                clear()
+                print("+========================+")
+                print("| Tugas Berhasil Dihapus |")
+                print("+========================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+            else:
+                clear()
+                print("+======================================+")
+                print("| ID Tugas Tidak Ditemukan Di Database |")
+                print("+======================================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
             clear()
-            print("+========================+")
-            print("| Tugas Berhasil Dihapus |")
-            print("+========================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-            break
-        else:
-            clear()
-            print("+======================================+")
-            print("| ID Tugas Tidak Ditemukan Di Database |")
-            print("+======================================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
 
 def menuCariTugas():
     while True:
@@ -777,29 +827,36 @@ def menuCariTugas():
         print("+============+")
         print("| Cari Tugas |")
         print("+============+")
-        idTugas = int(input("Masukkan ID Tugas Yang Ingin Dicari: "))
-        node = tugasLinkedList.jumpSearchID(idTugas, "tugas")
-        if node:
+        try:
+            idTugas = int(input("Masukkan ID Tugas Yang Ingin Dicari: "))
+            node = tugasLinkedList.jumpSearchID(idTugas, "tugas")
+            if node:
+                clear()
+                print("+=================+")
+                print("| Tugas Ditemukan |")
+                print("+=================+")
+                input("Tekan enter untuk melanjutkan...")
+                clear()
+                dataTugas = node.data
+                tabel = PrettyTable()
+                tabel.field_names = ["ID Tugas", "ID Admin", "ID Anggota", "Tugas Laporan", "Lokasi Laporan", "Status Laporan"]
+                tabel.add_row([dataTugas["ID_Tugas"], dataTugas["ID_Admin"], dataTugas["ID_Anggota"], dataTugas["Tugas_Laporan"], dataTugas["Lokasi_Laporan"], dataTugas["status_tugas"]])
+                print(tabel)
+                input("Tekan enter untuk melanjutkan...")
+                break
+            else:
+                clear()
+                print("+==========================+")
+                print("| ID Tugas Tidak Ditemukan |")
+                print("+==========================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
             clear()
-            print("+=================+")
-            print("| Tugas Ditemukan |")
-            print("+=================+")
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-            clear()
-            dataTugas = node.data
-            tabel = PrettyTable()
-            tabel.field_names = ["ID Tugas", "ID Admin", "ID Anggota", "Tugas Laporan", "Lokasi Laporan", "Status Laporan"]
-            tabel.add_row([dataTugas["ID_Tugas"], dataTugas["ID_Admin"], dataTugas["ID_Anggota"], dataTugas["Tugas_Laporan"], dataTugas["Lokasi_Laporan"], dataTugas["status_tugas"]])
-            print(tabel)
-            input("Tekan enter untuk melanjutkan...")
-            break
-        else:
-            clear()
-            print("+==========================+")
-            print("| ID Tugas Tidak Ditemukan |")
-            print("+==========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
 
 def menuUrutkanTugas():
     while True:
@@ -825,6 +882,7 @@ def menuUrutkanTugas():
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
