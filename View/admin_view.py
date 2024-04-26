@@ -42,25 +42,31 @@ def menuAdminLaporan():
         print("| [6]. Urutkan Laporan   |")
         print("| [7]. Keluar            |")
         print("+========================+")
-        pilihan = int(input("Masukkan Pilihan: "))
-        if pilihan == 1:
-            admin.menuBuatLaporan()
-        elif pilihan == 2:
-            admin.menuTampilkanLaporan()
-        elif pilihan == 3:
-            admin.menuPerbaruiLaporan()
-        elif pilihan == 4:
-            admin.menuHapusLaporan()
-        elif pilihan == 5:
-            admin.menuCariLaporan()
-        elif pilihan == 6:
-            admin.menuUrutkanLaporan()
-        elif pilihan == 7:
-            break
-        else:
-            print("+==============================+")
-            print("| Inputan Tidak Ada Di Pilihan |")
-            print("+==============================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan: "))
+            if pilihan == 1:
+                admin.menuBuatLaporan()
+            elif pilihan == 2:
+                menuTampilkanLaporan()
+            elif pilihan == 3:
+                admin.menuPerbaruiLaporan()
+            elif pilihan == 4:
+                admin.menuHapusLaporan()
+            elif pilihan == 5:
+                admin.menuCariLaporan()
+            elif pilihan == 6:
+                admin.menuUrutkanLaporan()
+            elif pilihan == 7:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
 def menuAdminTugas():
@@ -78,23 +84,65 @@ def menuAdminTugas():
         print("| [6]. Urutkan Tugas   |")
         print("| [7]. Keluar          |")
         print("+======================+")
-        pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6/7]: "))
-        if pilihan == 1:
-            admin.menuBuatTugas()
-        elif pilihan == 2:
-            admin.menuTampilkanTugas()
-        elif pilihan == 3:
-            admin.menuPerbaruiTugas()
-        elif pilihan == 4:
-            admin.menuHapusTugas()
-        elif pilihan == 5:
-            admin.menuCariTugas()
-        elif pilihan == 6:
-            admin.menuUrutkanTugas()
-        elif pilihan == 7:
-            break
-        else:
-            print("+==============================+")
-            print("| Inputan Tidak Ada Di Pilihan |")
-            print("+==============================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6/7]: "))
+            if pilihan == 1:
+                admin.menuBuatTugas()
+            elif pilihan == 2:
+                admin.menuTampilkanTugas()
+            elif pilihan == 3:
+                admin.menuPerbaruiTugas()
+            elif pilihan == 4:
+                admin.menuHapusTugas()
+            elif pilihan == 5:
+                admin.menuCariTugas()
+            elif pilihan == 6:
+                admin.menuUrutkanTugas()
+            elif pilihan == 7:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+def menuTampilkanLaporan():
+    while True:
+        clear()
+        print("+===============================+")
+        print("|         Menu Tampilkan        |")
+        print("+===============================+")
+        print("| [1]. Tampilkan Laporan        |")
+        print("| [2]. Tampilkan Isi Laporan    |")
+        print("| [3]. Tampilkan Lokasi Laporan |")
+        print("| [4]. Tampilkan Respon Admin   |")
+        print("| [5]. Keluar                   |")
+        print("+===============================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan: "))
+            if pilihan == 1:
+                admin.tampilkanLaporan("laporan")
+            elif pilihan == 2:
+                admin.tampilkanLaporan("isi")
+            elif pilihan == 3:
+                admin.tampilkanLaporan("lokasi")
+            elif pilihan == 4:
+                admin.tampilkanLaporan("respon")
+            elif pilihan == 5:
+                break
+            else:
+                clear()
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
             input("Tekan enter untuk melanjutkan...")

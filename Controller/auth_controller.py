@@ -79,6 +79,7 @@ def login():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def daftar():
     while True:
