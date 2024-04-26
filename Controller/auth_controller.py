@@ -11,59 +11,6 @@ db, cursor = koneksiDatabase()
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
-# def login():
-#     while True:
-#         clear()
-#         print("+================+")
-#         print("| Silahkan Login |")
-#         print("+================+")
-#         try:
-#             email = str(input("Masukkan Email: "))
-#             if cekEmailUser(email):
-#                 password = str(input("Masukkan Password: "))
-#                 if loginAdmin(email, password):
-#                     clear()
-#                     print("+================+")
-#                     print("| Login Berhasil |")
-#                     print("+================+")
-#                     input("Tekan enter untuk melanjutkan...")
-#                     admin.menuAdmin()
-#                     break
-#                 elif loginAnggota(email, password):
-#                     clear()
-#                     print("+================+")
-#                     print("| Login Berhasil |")
-#                     print("+================+")
-#                     input("Tekan enter untuk melanjutkan...")
-#                     anggota.menuAnggota(ambilNamaAnggota(email, password))
-#                     break
-#                 elif loginUser(email, password):
-#                     clear()
-#                     print("+================+")
-#                     print("| Login Berhasil |")
-#                     print("+================+")
-#                     input("Tekan enter untuk melanjutkan...")
-#                     user.menuUser(ambilNamaUser(email, password))
-#                     break
-#                 else:
-#                     clear()
-#                     print("+================+")
-#                     print("| Password Salah |")
-#                     print("+================+")
-#                     input("Tekan enter untuk melanjutkan...")
-#             else:
-#                 clear()
-#                 print("+=======================+")
-#                 print("| Email tidak terdaftar |")
-#                 print("+=======================+")
-#                 input("Tekan enter untuk melanjutkan...")
-#                 break
-#         except:
-#             print("+===========================+")
-#             print("| Mohon Perhatikan Masukkan |")
-#             print("+===========================+")
-#             input("Tekan enter untuk melanjutkan...")
-
 def login():
     while True:
         clear()
