@@ -13,7 +13,8 @@ def menuAdmin():
         print("| [1]. Laporan         |")
         print("| [2]. Tugas           |")
         print("| [3]. Anggota         |")
-        print("| [4]. Keluar          |")
+        print("| [4]. User            |")
+        print("| [5]. Keluar          |")
         print("+======================+")
         try:
             pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
@@ -24,6 +25,8 @@ def menuAdmin():
             elif pilihan == 3:
                 menuAdminAnggota()
             elif pilihan == 4:
+                menuAdminUser()
+            elif pilihan == 5:
                 break
             else:
                 print("+==============================+")
@@ -33,7 +36,7 @@ def menuAdmin():
         except:
             clear()
             print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
+            print(f"| Mohon Perhatikan Masukkan|")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
@@ -163,6 +166,48 @@ def menuAdminAnggota():
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
+def menuAdminUser():
+    while True:
+        clear()
+        admin.ambilDataUser()
+        print("+=====================+")
+        print("|         User        |")
+        print("+=====================+")
+        print("| [1]. Buat User      |")
+        print("| [2]. Tampilkan User |")
+        print("| [3]. Perbarui User  |")
+        print("| [4]. Hapus User     |")
+        print("| [5]. Cari User      |")
+        print("| [6]. Urutkan User   |")
+        print("| [7]. Keluar         |")
+        print("+=====================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6/7]: "))
+            if pilihan == 1:
+                admin.menuBuatUser()
+            elif pilihan == 2:
+                admin.menuTampilkanUser()
+            elif pilihan == 3:
+                admin.menuPerbaruiUser()
+            elif pilihan == 4:
+                admin.menuHapusUser()
+            elif pilihan == 5:
+                admin.menuCariUser()
+            elif pilihan == 6:
+                admin.menuUrutkanUser()
+            elif pilihan == 7:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
 
 def menuTampilkanLaporan():
     while True:
@@ -228,31 +273,3 @@ def menuTampilkanTugas():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-
-# def menuTampilkanAnggota():
-#     while True:
-#         clear()
-#         print("+===============================+")
-#         print("|         Menu Tampilkan        |")
-#         print("+===============================+")
-#         print("| [1]. Tampilkan Tugas          |")
-#         print("| [2]. Tampilkan Tugas Laporan  |")
-#         print("| [3]. Tampilkan Lokasi Laporan |")
-#         print("| [4]. Keluar                   |")
-#         print("+===============================+")
-#         try:
-#             pilihan = int(input("Masukkan Pilihan: "))
-#             if pilihan == 1:
-#                 admin.tampilkanTugas("tugas")
-#             elif pilihan == 2:
-#                 admin.tampilkanTugas("tugaslaporan")
-#             elif pilihan == 3:
-#                 admin.tampilkanTugas("lokasi")
-#             else:
-#                 break
-#         except:
-#             clear()
-#             print("+===========================+")
-#             print("| Mohon Perhatikan Masukkan |")
-#             print("+===========================+")
-#             input("Tekan enter untuk melanjutkan...")

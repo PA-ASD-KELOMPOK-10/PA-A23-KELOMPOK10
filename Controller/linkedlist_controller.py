@@ -60,6 +60,11 @@ class LinkedList:
                 daftarId.append(current.data["ID_Anggota"])
                 current = current.next
 
+        elif tipe == "user":
+            while current:
+                daftarId.append(current.data["ID_User"])
+                current = current.next
+
         daftarId = self.quickSort(daftarId)
 
         n = len(daftarId)
@@ -92,6 +97,11 @@ class LinkedList:
             elif tipe == "anggota":
                 while current:
                     if current.data["ID_Anggota"] == id:
+                        return current
+                    current = current.next
+            elif tipe == "user":
+                while current:
+                    if current.data["ID_User"] == id:
                         return current
                     current = current.next
         else:

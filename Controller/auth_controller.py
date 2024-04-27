@@ -92,7 +92,7 @@ def daftar():
             if email.strip():
                 if cekFormatEmail(email):
                     if len(email) <= 100:
-                        if not cekEmailUser(email):
+                        if not cekEmailUser(email) and not cekEmailAdmin(email) and not cekEmailAdmin(email):
                             password = str(input("Masukkan Password: "))
                             if password.strip():
                                 if len(password) <= 255:
@@ -109,6 +109,7 @@ def daftar():
                                                                 query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
                                                                 cursor.execute(query, (nama, password, email, alamat, noHP))
                                                                 db.commit()
+                                                                clear()
                                                                 pesan = f"| Akun Dengan Nama {nama} Berhasil Terdaftar |"
                                                                 print("+" + "=" * (len(pesan) - 2) + "+")
                                                                 print(pesan)
@@ -125,7 +126,7 @@ def daftar():
                                                         else:
                                                             clear()
                                                             print("+====================+")
-                                                            print("| Format Email Salah |")
+                                                            print("| Format Nomor Salah |")
                                                             print("+====================+")
                                                             input("Tekan enter untuk melanjutkan...")
                                                     else:

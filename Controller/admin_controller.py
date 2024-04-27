@@ -9,6 +9,7 @@ db, cursor = koneksiDatabase()
 tugasLinkedList = linkedlist.LinkedList()
 laporanLinkedList = linkedlist.LinkedList()
 anggotaLinkedList = linkedlist.LinkedList()
+userLinkedList = linkedlist.LinkedList()
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
@@ -351,6 +352,10 @@ def menuHapusLaporan():
                 print("+========================================+")
                 input("Tekan enter untuk melanjutkan...")
                 break
+        except mysql.connector.Error as error:
+            clear()
+            print(f"Error MySQL: {error}")
+            input("Tekan enter untuk melanjutkan...")
         except:
             clear()
             print("+===========================+")
@@ -796,6 +801,10 @@ def menuHapusTugas():
                 print("+======================================+")
                 input("Tekan enter untuk melanjutkan...")
                 break
+        except mysql.connector.Error as error:
+            clear()
+            print(f"Error MySQL: {error}")
+            input("Tekan enter untuk melanjutkan...")
         except:
             clear()
             print("+===========================+")
@@ -915,7 +924,7 @@ def menuBuatAnggota():
             emailAnggota = str(input("Masukkan Email Anggota: "))
             if emailAnggota.strip():
                 if cekFormatEmail(emailAnggota):
-                    if not cekEmailAnggota(emailAnggota):
+                    if not cekEmailAnggota(emailAnggota) and not cekEmailAdmin(emailAnggota) and not cekEmailUser(emailAnggota):
                         if len(emailAnggota) <= 100:
                             passwordAnggota = str(input("Masukkan Password Anggota: "))
                             if passwordAnggota.strip():
@@ -1265,6 +1274,10 @@ def menuHapusAnggota():
                 print("+========================================+")
                 input("Tekan enter untuk melanjutkan...")
                 break
+        except mysql.connector.Error as error:
+            clear()
+            print(f"Error MySQL: {error}")
+            input("Tekan enter untuk melanjutkan...")
         except:
             clear()
             print("+===========================+")
@@ -1353,7 +1366,7 @@ def urutkanAnggota(urut):
         daftarIDTerurut = anggotaLinkedList.quickSortDescending(daftarID)
 
     tabel = PrettyTable()
-    tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan", "Status Laporan", "Respon Admin"]
+    tabel.field_names = ["ID Anggota", "Rangking Anggota", "Nama Anggota", "Keahlian Anggota", "Email Anggota", "Password Anggota"]
 
     for idAnggota in daftarIDTerurut:
         node = anggotaLinkedList.jumpSearchID(idAnggota, "anggota")
@@ -1364,6 +1377,535 @@ def urutkanAnggota(urut):
     clear()
     print(tabel)
     input("Tekan enter untuk melanjutkan...")
+
+# User
+
+
+def menuBuatUser():
+    while True:
+        clear()
+        print("+=================+")
+        print("| Silahkan Daftar |")
+        print("+=================+")
+        try:
+            email = str(input("Masukkan Email: "))
+            if email.strip():
+                if cekFormatEmail(email):
+                    if len(email) <= 100:
+                        if not cekEmailUser(email) and not cekEmailAdmin(email) and not cekEmailAdmin(email):
+                            password = str(input("Masukkan Password: "))
+                            if password.strip():
+                                if len(password) <= 255:
+                                    nama = str(input("Masukkan Nama: "))
+                                    if nama.strip():
+                                        if len(nama) <= 255:
+                                            alamat = str(input("Masukkan Alamat: "))
+                                            if alamat.strip():
+                                                if len(alamat) <= 100:
+                                                    noHP = str(input("Masukkan Nomor HP: "))
+                                                    if noHP.strip():
+                                                        if cekFormatNomorHP(noHP):
+                                                            if len(noHP) <= 13:
+                                                                query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
+                                                                cursor.execute(query, (nama, password, email, alamat, noHP))
+                                                                db.commit()
+                                                                cursor.fetchall()
+                                                                clear()
+                                                                print("+===========================+")
+                                                                print("| Akun User Berhasil Dibuat |")
+                                                                print("+===========================+")
+                                                                input("Tekan enter untuk melanjutkan...")
+                                                                break
+                                                            else:
+                                                                clear()
+                                                                print("+=============================================+")
+                                                                print("| Nomor HP Tidak Boleh Lebih Dari 13 Karakter |")
+                                                                print("+=============================================+")
+                                                                input("Tekan enter untuk melanjutkan...") 
+                                                        else:
+                                                            clear()
+                                                            print("+====================+")
+                                                            print("| Format Nomor Salah |")
+                                                            print("+====================+")
+                                                            input("Tekan enter untuk melanjutkan...")
+                                                    else:
+                                                        clear()
+                                                        print("==============================+")
+                                                        print("| Nomor HP Tidak Boleh Kosong |")
+                                                        print("==============================+")
+                                                        input("Tekan enter untuk melanjutkan...") 
+                                                else:
+                                                    clear()
+                                                    print("+===========================================+")
+                                                    print("| Alamat Tidak Boleh Lebih Dari 100 Karakter |")
+                                                    print("+===========================================+")
+                                                    input("Tekan enter untuk melanjutkan...") 
+                                            else:
+                                                clear()
+                                                print("+===========================+")
+                                                print("| Alamat Tidak Boleh Kosong |")
+                                                print("+===========================+")
+                                                input("Tekan enter untuk melanjutkan...") 
+                                        else:
+                                            clear()
+                                            print("+==========================================+")
+                                            print("| Nama Tidak Boleh Lebih Dari 255 Karakter |")
+                                            print("+==========================================+")
+                                            input("Tekan enter untuk melanjutkan...") 
+                                    else:
+                                        clear()
+                                        print("+=========================+")
+                                        print("| Nama Tidak Boleh Kosong |")
+                                        print("+=========================+")
+                                        input("Tekan enter untuk melanjutkan...")
+                                else:
+                                    clear()
+                                    print("+==============================================+")
+                                    print("| Password Tidak Boleh Lebih Dari 255 Karakter |")
+                                    print("+==============================================+")
+                                    input("Tekan enter untuk melanjutkan...")
+                            else:
+                                clear()
+                                print("+=============================+")
+                                print("| Password Tidak Boleh Kosong |")
+                                print("+=============================+")
+                                input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+=============================+")
+                            print("| Email Sudah Ada Di Database |")
+                            print("+=============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                            break
+                    else:
+                        clear()
+                        print("+===========================================+")
+                        print("| Email Tidak Boleh Lebih Dari 100 Karakter |")
+                        print("+===========================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                        break
+                else:
+                    clear()
+                    print("+====================+")
+                    print("| Format Email Salah |")
+                    print("+====================+")
+                    input("Tekan enter untuk melanjutkan...")
+                    break
+            else:
+                clear()
+                print("+==========================+")
+                print("| Email Tidak Boleh Kosong |")
+                print("+==========================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+def menuPerbaruiUser():
+    while True:
+        clear()
+        print("+==============================+")
+        print("|         Perbarui User        |")
+        print("+==============================+")
+        print("| [1]. Perbarui Email User     |")
+        print("| [2]. Perbarui Password User  |")
+        print("| [3]. Perbarui ID Admin User  |")
+        print("| [4]. Perbarui Nama User      |")
+        print("| [5]. Perbarui Alamat User    |")
+        print("| [6]. Perbarui No HP User     |")
+        print("| [7]. Keluar                  |")
+        print("+==============================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan: "))
+            if pilihan == 1:
+                idUser = int(input("Masukkan ID User: "))
+                if cekIDUser(idUser):
+                    email = str(input("Masukkan Email: "))
+                    if email.strip():
+                        if cekFormatEmail(email):
+                            if len(email) <= 100:
+                                if not cekEmailUser(email) and not cekEmailAdmin(email) and not cekEmailAdmin(email):
+                                    query = "UPDATE user SET Email_User = %s WHERE ID_User = %s"
+                                    cursor.execute(query, (email, idUser))
+                                    db.commit()
+                                    clear()
+                                    print("+============================+")
+                                    print("| Email User Berhasil Diubah |")
+                                    print("+============================+")
+                                    input("Tekan enter untuk melanjutkan...")  
+                                else:
+                                    clear()
+                                    print("+=============================+")
+                                    print("| Email Sudah Ada Di Database |")
+                                    print("+=============================+")
+                                    input("Tekan enter untuk melanjutkan...")
+                                    break
+                            else:
+                                clear()
+                                print("+===========================================+")
+                                print("| Email Tidak Boleh Lebih Dari 100 Karakter |")
+                                print("+===========================================+")
+                                input("Tekan enter untuk melanjutkan...")
+                                break
+                        else:
+                            clear()
+                            print("+====================+")
+                            print("| Format Email Salah |")
+                            print("+====================+")
+                            input("Tekan enter untuk melanjutkan...")
+                            break
+                    else:
+                        clear()
+                        print("+==========================+")
+                        print("| Email Tidak Boleh Kosong |")
+                        print("+==========================+")
+                        input("Tekan enter untuk melanjutkan...")
+                        break
+                else:
+                    clear()
+                    print("+=====================================+")
+                    print("| ID User Tidak Ditemukan Di Database |")
+                    print("+=====================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 2:
+                idUser = int(input("Masukkan ID User: "))
+                if cekIDUser(idUser):
+                    passwordUser = str(input("Masukkan Password User Yang Baru: "))
+                    if passwordUser.strip():
+                        if len(passwordUser) <= 255:
+                            query = "UPDATE user SET Password_User = %s WHERE ID_User = %s"
+                            cursor.execute(query, (passwordUser, idUser))
+                            db.commit()
+                            clear()
+                            print("+===================================+")
+                            print("| Password User Berhasil Diperbarui |")
+                            print("+===================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+===================================================+")
+                            print("| Password User Tidak Boleh Lebih Dari 255 Karakter |")
+                            print("+===================================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                    else:
+                        clear()
+                        print("+==================================+")
+                        print("| Password User Tidak Boleh Kosong |")
+                        print("+==================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+=====================================+")
+                    print("| ID User Tidak Ditemukan Di Database |")
+                    print("+=====================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 3:
+                idUser = int(input("Masukkan ID User: "))
+                if cekIDUser(idUser):
+                    idAdmin = int(input("Masukkan ID Admin Yang Baru: "))
+                    if str(idAdmin).strip():
+                        if cekIDAdmin(idAdmin):
+                            if len(str(idAdmin)) <= 11:
+                                query = "UPDATE user SET ID_Admin = %s WHERE ID_User = %s"
+                                cursor.execute(query, (idAdmin, idUser))
+                                db.commit()
+                                clear()
+                                print("+==============================+")
+                                print('| ID Admin Berhasil Diperbarui |')
+                                print("+==============================+")
+                                input("Tekan enter untuk melanjutkan...")
+                            else:
+                                clear()
+                                print("+=============================================+")
+                                print("| ID Admin Tidak Boleh Lebih Dari 11 Karakter |")
+                                print("+=============================================+")
+                                input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+================================+")
+                            print("| ID Admin Tidak Ada Di Database |")
+                            print("+================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                    else:
+                        clear()
+                        print("+=============================+")
+                        print("| ID Admin Tidak Boleh Kosong |")
+                        print("+=============================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+=====================================+")
+                    print("| ID User Tidak Ditemukan Di Database |")
+                    print("+=====================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 4:
+                idUser = int(input("Masukkan ID User: "))
+                if cekIDUser(idUser):
+                    namaUser = str(input("Masukkan Nama User Yang Baru: "))
+                    if namaUser.strip():
+                        if len(namaUser) <= 100:
+                            query = "UPDATE user SET Nama_User = %s WHERE ID_User = %s"
+                            cursor.execute(query, (namaUser, idUser))
+                            db.commit()
+                            clear()
+                            print("+===============================+")
+                            print('| Nama User Berhasil Diperbarui |')
+                            print("+===============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+===============================================+")
+                            print("| Nama User Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+===============================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                    else:
+                        clear()
+                        print("+==============================+")
+                        print("| Nama User Tidak Boleh Kosong |")
+                        print("+==============================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+=====================================+")
+                    print("| ID User Tidak Ditemukan Di Database |")
+                    print("+=====================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 5:
+                idUser = int(input("Masukkan ID User: "))
+                if cekIDUser(idUser):
+                    alamatUser = str(input("Masukkan Alamat User Yang Baru: "))
+                    if alamatUser.strip():
+                        if len(alamatUser) <= 100:
+                            query = "UPDATE user SET Alamat = %s WHERE ID_User = %s"
+                            cursor.execute(query, (alamatUser, idUser))
+                            db.commit()
+                            clear()
+                            print("+=================================+")
+                            print('| Alamat User Berhasil Diperbarui |')
+                            print("+=================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+=================================================+")
+                            print("| Alamat User Tidak Boleh Lebih Dari 100 Karakter |")
+                            print("+=================================================+")
+                            input("Tekan enter untuk melanjutkan...")
+                    else:
+                        clear()
+                        print("+================================+")
+                        print("| Alamat User Tidak Boleh Kosong |")
+                        print("+================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+=====================================+")
+                    print("| ID User Tidak Ditemukan Di Database |")
+                    print("+=====================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 6:
+                idUser = int(input("Masukkan ID User: "))
+                if cekIDUser(idUser):
+                    noHP = str(input("Masukkan Nomor HP User Yang Baru: "))
+                    if noHP.strip():
+                        if cekFormatNomorHP(noHP):
+                            if len(noHP) <= 13:
+                                query = "UPDATE user SET No_Hp = %s WHERE ID_User = %s"
+                                cursor.execute(query, (noHP, idUser))
+                                db.commit()
+                                clear()
+                                print("+==============================+")
+                                print('| Nomor HP Berhasil Diperbarui |')
+                                print("+==============================+")
+                                input("Tekan enter untuk melanjutkan...")
+                            else:
+                                clear()
+                                print("+=============================================+")
+                                print("| Nomor HP Tidak Boleh Lebih Dari 13 Karakter |")
+                                print("+=============================================+")
+                                input("Tekan enter untuk melanjutkan...")
+                        else:
+                            clear()
+                            print("+==============================+")
+                            print("| Nomor HP Tidak Sesuai Format |")
+                            print("+==============================+")
+                            input("Tekan enter untuk melanjutkan...")
+                    else:
+                        clear()
+                        print("+================================+")
+                        print("| Alamat User Tidak Boleh Kosong |")
+                        print("+================================+")
+                        input("Tekan enter untuk melanjutkan...")
+                else:
+                    clear()
+                    print("+=====================================+")
+                    print("| ID User Tidak Ditemukan Di Database |")
+                    print("+=====================================+")
+                    input("Tekan enter untuk melanjutkan...")
+            elif pilihan == 7:
+                break
+            else:
+                clear()
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+
+def menuTampilkanUser():
+    clear()
+    ambilDataUser()
+    tabel = PrettyTable()
+    tabel.field_names = ["ID User", "ID Admin", "Nama User", "Email User", "Password User", "Alamat", "No HP"]
+    current = userLinkedList.head
+    while current:
+        data = current.data
+        alamat = data["Alamat"]
+        if len(alamat) > 50:
+            alamat = data["Alamat"][:47] + "..."
+        tabel.add_row([data["ID_User"], data["ID_Admin"], data["Nama_User"], data["Email_User"], data["Password_User"], alamat, data["No_Hp"]])
+        current = current.next
+    print(tabel)
+    input("Tekan enter untuk melanjutkan...")
+
+def menuHapusUser():
+    while True:
+        clear()
+        print("+==============+")
+        print("|  Hapus User  |")
+        print("+==============+")
+        try:
+            idUser = int(input("Masukkan ID User Yang Ingin Dihapus: "))
+            if cekIDUser(idUser):
+                query = "DELETE FROM user WHERE ID_User = %s"
+                cursor.execute(query, (idUser, ))
+                db.commit()
+                clear()
+                print("+=======================+")
+                print("| User Berhasil Dihapus |")
+                print("|=======================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+            else:
+                clear()
+                print("+=====================================+")
+                print("| ID User Tidak Ditemukan Di Database |")
+                print("+=====================================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except mysql.connector.Error as error:
+            clear()
+            print(f"Error MySQL: {error}")
+            input("Tekan enter untuk melanjutkan...")
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+            break
+
+def menuCariUser():
+    while True:
+        clear()
+        print("+===========+")
+        print("| Cari User |")
+        print("+===========+")
+        try:
+            idUser = int(input("Masukkan ID User Yang Ingin Dicari: "))
+            node = userLinkedList.jumpSearchID(idUser, "user")
+            if node:
+                clear()
+                print("+================+")
+                print("| User Ditemukan |")
+                print("+================+")
+                input("Tekan enter untuk melanjutkan...")
+                clear()
+                dataAnggota = node.data
+                tabel = PrettyTable()
+                tabel.field_names = ["ID User", "ID Admin", "Nama User", "Email User", "Password User", "Alamat", "No HP"]
+                tabel.add_row([dataAnggota["ID_User"], dataAnggota["ID_Admin"], dataAnggota["Nama_User"], dataAnggota["Email_User"], dataAnggota["Password_User"], dataAnggota["Alamat"], dataAnggota["No_Hp"]])
+                print(tabel)
+                input("Tekan enter untuk melanjutkan...")
+                break
+            else:
+                clear()
+                print("+=========================+")
+                print("| ID User Tidak Ditemukan |")
+                print("+=========================+")
+                input("Tekan enter untuk melanjutkan...")
+                break
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+def menuUrutkanUser():
+    while True:
+        clear()
+        print("+==================+")
+        print("|   Urutkan User   |")
+        print("+==================+")
+        print("| [1]. Ascending   |")
+        print("| [2]. Descending  |")
+        print("| [3]. Keluar      |")
+        print("+==================+")
+        try:
+            pilihan = int(input("Masukkan Pilihan: "))
+            if pilihan == 1:
+                urutkanUser("Ascending")
+            elif pilihan == 2:
+                urutkanUser("Descending")
+            elif pilihan == 3:
+                break
+            else:
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
+        except:
+            clear()
+            print("+===========================+")
+            print("| Mohon Perhatikan Masukkan |")
+            print("+===========================+")
+            input("Tekan enter untuk melanjutkan...")
+
+def urutkanUser(urut):
+    clear()
+    ambilDataUser()
+    daftarID = []
+    current = userLinkedList.head
+    while current:
+        daftarID.append(current.data["ID_User"])
+        current = current.next
+    if urut == "Ascending":
+        daftarIDTerurut = userLinkedList.quickSort(daftarID)
+    elif urut == "Descending":
+        daftarIDTerurut = userLinkedList.quickSortDescending(daftarID)
+
+    tabel = PrettyTable()
+    tabel.field_names = ["ID User", "ID Admin", "Nama User", "Email User", "Password User", "Alamat", "No HP"]
+
+    for idUser in daftarIDTerurut:
+        node = userLinkedList.jumpSearchID(idUser, "user")
+        if node:
+            data = node.data
+            tabel.add_row([data["ID_User"], data["ID_Admin"], data["Nama_User"], data["Email_User"], data["Password_User"], data["Alamat"], data["No_Hp"]])
+    
+    clear()
+    print(tabel)
+    input("Tekan enter untuk melanjutkan...")
+
 
 # Ambil Data
 
@@ -1426,6 +1968,27 @@ def ambilDataAnggota():
                 "email_anggota": kolom[5]
             }
             anggotaLinkedList.insert(dataAnggota)
+    except mysql.connector.Error as err:
+        print(f"Error MySQL: {err.msg}")
+        input("Tekan enter untuk melanjutkan...")
+
+def ambilDataUser():
+    try:
+        userLinkedList.clear()
+        query = "SELECT * FROM user"
+        cursor.execute(query)
+        hasil = cursor.fetchall()
+        for kolom in hasil:
+            dataUser = {
+                "ID_User": kolom[0],
+                "ID_Admin": kolom[1],
+                "Nama_User": kolom[2],
+                "Password_User": kolom[3],
+                "Email_User": kolom[4],
+                "Alamat": kolom[5],
+                "No_Hp": kolom[6]
+            }
+            userLinkedList.insert(dataUser)
     except mysql.connector.Error as err:
         print(f"Error MySQL: {err.msg}")
         input("Tekan enter untuk melanjutkan...")
@@ -1533,3 +2096,10 @@ def cekEmailUser(email):
 def cekFormatEmail(email):
     pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     return bool(re.match(pattern, email))
+
+def cekFormatNomorHP(noHP):
+    pattern = r"^08[0-9]+$"
+    if re.match(pattern, noHP):
+        return True
+    else:
+        return False
