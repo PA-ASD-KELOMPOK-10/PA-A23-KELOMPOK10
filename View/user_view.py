@@ -17,7 +17,7 @@ def menuUser(nama):
         print("| [3]. Keluar      " + " " * (len(pesan) - 20)  + "|" )
         print("+" + "=" * (len(pesan) - 2) + "+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
             if pilihan == 1:
                 user.menuBuatLaporan(nama)
             elif pilihan == 2:
@@ -29,7 +29,7 @@ def menuUser(nama):
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
-        except Exception as e:
+        except:
             clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")

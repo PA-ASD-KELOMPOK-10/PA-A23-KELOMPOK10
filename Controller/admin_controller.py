@@ -362,6 +362,7 @@ def menuHapusLaporan():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuCariLaporan():
     while True:
@@ -381,8 +382,8 @@ def menuCariLaporan():
                 clear()
                 dataLaporan = node.data
                 tabel = PrettyTable()
-                tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan"]
-                tabel.add_row([dataLaporan["ID_Laporan"], dataLaporan["ID_User"], dataLaporan["Isi_Laporan"], dataLaporan["Lokasi_Laporan"]])
+                tabel.field_names = ["ID Laporan", "ID User", "Isi Laporan", "Lokasi Laporan", "Status Laporan", "Respon Admin"]
+                tabel.add_row([dataLaporan["ID_Laporan"], dataLaporan["ID_User"], dataLaporan["Isi_Laporan"], dataLaporan["Lokasi_Laporan"], dataLaporan["status_laporan"], dataLaporan["respon_admin"]])
                 print(tabel)
                 input("Tekan enter untuk melanjutkan...")
                 break
@@ -399,6 +400,7 @@ def menuCariLaporan():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuUrutkanLaporan():
     while True:
@@ -411,7 +413,7 @@ def menuUrutkanLaporan():
         print("| [3]. Keluar     |")
         print("+=================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
             if pilihan == 1:
                 urutkanLaporan("Ascending")
             elif pilihan == 2:
@@ -473,6 +475,7 @@ def urutkanLaporan(urut):
 
 def menuBuatTugas():
     while True:
+        clear()
         print("+==============+")
         print("|  Buat Tugas  |")
         print("+==============+")
@@ -532,12 +535,14 @@ def menuBuatTugas():
                 print("| ID Admin Tidak Ada Di Database |")
                 print("+================================+")
                 input("Tekan enter untuk melanjutkan...")
+                break
         except:
             clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def tampilkanTugas(tugas):
     clear()
@@ -811,6 +816,7 @@ def menuHapusTugas():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuCariTugas():
     while True:
@@ -848,6 +854,7 @@ def menuCariTugas():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuUrutkanTugas():
     while True:
@@ -860,7 +867,7 @@ def menuUrutkanTugas():
         print("| [3]. Keluar     |")
         print("+=================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
             if pilihan == 1:
                 urutkanTugas("Ascending")
             elif pilihan == 2:
@@ -1057,7 +1064,7 @@ def menuPerbaruiAnggota():
         print("| [6]. Keluar                    |")
         print("+================================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6]: "))
             if pilihan == 1:
                 idAnggota = int(input("Masukkan ID Anggota: "))
                 if cekIDAnggota(idAnggota):
@@ -1092,7 +1099,6 @@ def menuPerbaruiAnggota():
                             print("| Format Email Tidak Sesuai Format |")
                             print("+==================================+")
                             input("Tekan enter untuk melanjutkan...")
-                            break
                     else:
                         clear()
                         print("+==================================+")
@@ -1204,10 +1210,10 @@ def menuPerbaruiAnggota():
             elif pilihan == 5:
                 idAnggota = int(input("Masukkan ID Anggota: "))
                 if cekIDAnggota(idAnggota):
-                    rankingAnggota = str(input("Masukkan Ranking Anggota Yang Baru: "))
+                    rankingAnggota = int(input("Masukkan Ranking Anggota Yang Baru: "))
                     if str(rankingAnggota).strip():
                         if len(str(rankingAnggota)) <= 11:
-                            query = "UPDATE anggota SET Ranking_Anggota = %s WHERE ID_Anggota = %s"
+                            query = "UPDATE anggota SET Rangking_Anggota = %s WHERE ID_Anggota = %s"
                             cursor.execute(query, (rankingAnggota, idAnggota))
                             db.commit()
                             clear()
@@ -1241,7 +1247,7 @@ def menuPerbaruiAnggota():
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
-        except:
+        except Exception as e:
             clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
@@ -1286,6 +1292,7 @@ def menuHapusAnggota():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuCariAnggota():
     while True:
@@ -1323,7 +1330,7 @@ def menuCariAnggota():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
-
+            break
 def menuUrutkanAnggota():
     while True:
         clear()
@@ -1335,7 +1342,7 @@ def menuUrutkanAnggota():
         print("| [3]. Keluar     |")
         print("+=================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
             if pilihan == 1:
                 urutkanAnggota("Ascending")
             elif pilihan == 2:
@@ -1501,10 +1508,12 @@ def menuBuatUser():
                 input("Tekan enter untuk melanjutkan...")
                 break
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuPerbaruiUser():
     while True:
@@ -1521,7 +1530,7 @@ def menuPerbaruiUser():
         print("| [7]. Keluar                  |")
         print("+==============================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6/7]: "))
             if pilihan == 1:
                 idUser = int(input("Masukkan ID User: "))
                 if cekIDUser(idUser):
@@ -1544,28 +1553,24 @@ def menuPerbaruiUser():
                                     print("| Email Sudah Ada Di Database |")
                                     print("+=============================+")
                                     input("Tekan enter untuk melanjutkan...")
-                                    break
                             else:
                                 clear()
                                 print("+===========================================+")
                                 print("| Email Tidak Boleh Lebih Dari 100 Karakter |")
                                 print("+===========================================+")
                                 input("Tekan enter untuk melanjutkan...")
-                                break
                         else:
                             clear()
                             print("+====================+")
                             print("| Format Email Salah |")
                             print("+====================+")
                             input("Tekan enter untuk melanjutkan...")
-                            break
                     else:
                         clear()
                         print("+==========================+")
                         print("| Email Tidak Boleh Kosong |")
                         print("+==========================+")
                         input("Tekan enter untuk melanjutkan...")
-                        break
                 else:
                     clear()
                     print("+=====================================+")
@@ -1856,6 +1861,7 @@ def menuCariUser():
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuUrutkanUser():
     while True:
@@ -1868,7 +1874,7 @@ def menuUrutkanUser():
         print("| [3]. Keluar      |")
         print("+==================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
             if pilihan == 1:
                 urutkanUser("Ascending")
             elif pilihan == 2:

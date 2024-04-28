@@ -52,6 +52,7 @@ def menuBuatLaporan(nama):
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def menuCekLaporan(nama):
     clear()

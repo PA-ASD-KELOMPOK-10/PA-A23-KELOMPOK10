@@ -17,7 +17,7 @@ def menuAdmin():
         print("| [5]. Keluar          |")
         print("+======================+")
         try:
-            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5]: "))
             if pilihan == 1:
                 menuAdminLaporan()
             elif pilihan == 2:
@@ -36,7 +36,7 @@ def menuAdmin():
         except:
             clear()
             print("+===========================+")
-            print(f"| Mohon Perhatikan Masukkan|")
+            print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
 
@@ -56,7 +56,7 @@ def menuAdminLaporan():
         print("| [7]. Keluar            |")
         print("+========================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5/6/7]: "))
             if pilihan == 1:
                 admin.menuBuatLaporan()
             elif pilihan == 2:
@@ -72,11 +72,13 @@ def menuAdminLaporan():
             elif pilihan == 7:
                 break
             else:
+                clear()
                 print("+==============================+")
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
@@ -114,11 +116,13 @@ def menuAdminTugas():
             elif pilihan == 7:
                 break
             else:
+                clear()
                 print("+==============================+")
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
@@ -156,11 +160,13 @@ def menuAdminAnggota():
             elif pilihan == 7:
                 break
             else:
+                clear()
                 print("+==============================+")
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
@@ -198,6 +204,7 @@ def menuAdminUser():
             elif pilihan == 7:
                 break
             else:
+                clear()
                 print("+==============================+")
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
@@ -222,7 +229,7 @@ def menuTampilkanLaporan():
         print("| [5]. Keluar                   |")
         print("+===============================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4/5]: "))
             if pilihan == 1:
                 admin.tampilkanLaporan("laporan")
             elif pilihan == 2:
@@ -258,15 +265,21 @@ def menuTampilkanTugas():
         print("| [4]. Keluar                   |")
         print("+===============================+")
         try:
-            pilihan = int(input("Masukkan Pilihan: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3/4]: "))
             if pilihan == 1:
                 admin.tampilkanTugas("tugas")
             elif pilihan == 2:
                 admin.tampilkanTugas("tugaslaporan")
             elif pilihan == 3:
                 admin.tampilkanTugas("lokasi")
-            else:
+            elif pilihan == 4:
                 break
+            else:
+                clear()
+                print("+==============================+")
+                print("| Inputan Tidak Ada Di Pilihan |")
+                print("+==============================+")
+                input("Tekan enter untuk melanjutkan...")
         except:
             clear()
             print("+===========================+")

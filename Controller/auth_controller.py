@@ -200,10 +200,12 @@ def daftar():
                 input("Tekan enter untuk melanjutkan...")
                 break
         except:
+            clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
             input("Tekan enter untuk melanjutkan...")
+            break
 
 def loginAdmin(email, password):
     try:

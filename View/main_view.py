@@ -17,7 +17,7 @@ def menuUtama():
         print("| [3]. Keluar                     |")
         print("+=================================+")
         try:
-            pilihan = int(input("Masukkan Pilihan [1/2]: "))
+            pilihan = int(input("Masukkan Pilihan [1/2/3]: "))
             if pilihan == 1:
                 auth_controller.login()
             elif pilihan == 2:
