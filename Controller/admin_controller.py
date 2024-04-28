@@ -1258,6 +1258,8 @@ def menuHapusAnggota():
         try:
             idAnggota = int(input("Masukkan ID Anggota Yang Ingin Dihapus: "))
             if cekIDAnggota(idAnggota):
+                query = "DELETE FROM tugas WHERE ID_Anggota = %s"
+                cursor.execute(query, (idAnggota, ))
                 query = "DELETE FROM anggota WHERE ID_Anggota = %s"
                 cursor.execute(query, (idAnggota, ))
                 db.commit()
@@ -1785,6 +1787,11 @@ def menuHapusUser():
         try:
             idUser = int(input("Masukkan ID User Yang Ingin Dihapus: "))
             if cekIDUser(idUser):
+                idLaporan = ambilIDLaporan(idUser)
+                query = "UPDATE admin SET ID_Laporan = %s WHERE ID_Laporan = %s"
+                cursor.execute(query, (None, idLaporan))
+                query = "DELETE FROM laporan WHERE ID_User = %s"
+                cursor.execute(query, (idUser, ))
                 query = "DELETE FROM user WHERE ID_User = %s"
                 cursor.execute(query, (idUser, ))
                 db.commit()
@@ -1989,6 +1996,22 @@ def ambilDataUser():
                 "No_Hp": kolom[6]
             }
             userLinkedList.insert(dataUser)
+    except mysql.connector.Error as err:
+        print(f"Error MySQL: {err.msg}")
+        input("Tekan enter untuk melanjutkan...")
+
+def ambilIDLaporan(idUser):
+    try:
+        query = "SELECT * FROM laporan WHERE ID_User = %s"
+        cursor.execute(query, (idUser, ))
+        login = cursor.fetchone()
+        if login:
+            cursor.fetchall()
+            idLaporan = int(login[0])
+            return idLaporan    
+        else:
+            cursor.fetchall()
+            return False
     except mysql.connector.Error as err:
         print(f"Error MySQL: {err.msg}")
         input("Tekan enter untuk melanjutkan...")
