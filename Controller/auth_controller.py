@@ -340,7 +340,7 @@ def ambilNamaUser(email, password):
 
 
 def cekFormatEmail(email):
-    pattern = r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$"
+    pattern = r"^[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,}$"
     return bool(re.match(pattern, email))
 
 
