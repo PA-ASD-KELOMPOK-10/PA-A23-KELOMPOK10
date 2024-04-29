@@ -78,8 +78,12 @@ def login():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def daftar():
     while True:
@@ -204,8 +208,12 @@ def daftar():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def loginAdmin(email, password):
     try:
@@ -330,9 +338,11 @@ def ambilNamaUser(email, password):
         print(f"Error MySQL: {err.msg}")
         input("Tekan enter untuk melanjutkan...")
 
+
 def cekFormatEmail(email):
-    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    pattern = r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$"
     return bool(re.match(pattern, email))
+
 
 def cekFormatNomorHP(noHP):
     pattern = r"^08[0-9]+$"

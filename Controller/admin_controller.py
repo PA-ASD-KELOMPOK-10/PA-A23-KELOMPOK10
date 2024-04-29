@@ -81,8 +81,12 @@ def menuBuatLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def tampilkanLaporan(laporan):
     clear()
@@ -326,7 +330,11 @@ def menuPerbaruiLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 def menuHapusLaporan():
     while True:
         clear()
@@ -336,6 +344,8 @@ def menuHapusLaporan():
         try:
             idLaporan = int(input("Masukkan ID Laporan Yang Ingin Dihapus: "))
             if cekIDLaporan(idLaporan):
+                query = "UPDATE admin SET ID_Laporan = %s WHERE ID_Laporan = %s"
+                cursor.execute(query, (None, idLaporan))
                 query = "DELETE FROM laporan WHERE ID_Laporan = %s"
                 cursor.execute(query, (idLaporan, ))
                 db.commit()
@@ -361,8 +371,11 @@ def menuHapusLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
 
 def menuCariLaporan():
     while True:
@@ -399,8 +412,12 @@ def menuCariLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuUrutkanLaporan():
     while True:
@@ -430,7 +447,11 @@ def menuUrutkanLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def urutkanLaporan(urut):
     clear()
@@ -541,8 +562,12 @@ def menuBuatTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def tampilkanTugas(tugas):
     clear()
@@ -779,7 +804,11 @@ def menuPerbaruiTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuHapusTugas():
     while True:
@@ -815,8 +844,12 @@ def menuHapusTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuCariTugas():
     while True:
@@ -853,8 +886,12 @@ def menuCariTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuUrutkanTugas():
     while True:
@@ -884,7 +921,11 @@ def menuUrutkanTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def urutkanTugas(urut):
     clear()
@@ -1034,8 +1075,12 @@ def menuBuatAnggota():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuTampilkanAnggota():
     clear()
@@ -1247,12 +1292,16 @@ def menuPerbaruiAnggota():
                 print("| Inputan Tidak Ada Di Pilihan |")
                 print("+==============================+")
                 input("Tekan enter untuk melanjutkan...")
-        except Exception as e:
+        except:
             clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 
 def menuHapusAnggota():
@@ -1291,8 +1340,12 @@ def menuHapusAnggota():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuCariAnggota():
     while True:
@@ -1329,8 +1382,12 @@ def menuCariAnggota():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 def menuUrutkanAnggota():
     while True:
         clear()
@@ -1359,7 +1416,11 @@ def menuUrutkanAnggota():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def urutkanAnggota(urut):
     clear()
@@ -1512,8 +1573,12 @@ def menuBuatUser():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuPerbaruiUser():
     while True:
@@ -1764,7 +1829,11 @@ def menuPerbaruiUser():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 
 def menuTampilkanUser():
@@ -1816,14 +1885,21 @@ def menuHapusUser():
         except mysql.connector.Error as error:
             clear()
             print(f"Error MySQL: {error}")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
         except:
             clear()
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuCariUser():
     while True:
@@ -1860,8 +1936,12 @@ def menuCariUser():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuUrutkanUser():
     while True:
@@ -1891,7 +1971,11 @@ def menuUrutkanUser():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def urutkanUser(urut):
     clear()

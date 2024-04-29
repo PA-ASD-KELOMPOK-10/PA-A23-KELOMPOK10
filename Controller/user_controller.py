@@ -51,8 +51,12 @@ def menuBuatLaporan(nama):
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-            break
+            try:
+                input("Tekan enter untuk melanjutkan...")
+                break
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuCekLaporan(nama):
     clear()
@@ -74,4 +78,5 @@ def simpanIDUser(nama):
     hasil = cursor.fetchone()
     if hasil:
         idUser = hasil[0]
+        cursor.fetchall()
         return idUser

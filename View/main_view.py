@@ -39,5 +39,7 @@ def menuUtama():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
-
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")

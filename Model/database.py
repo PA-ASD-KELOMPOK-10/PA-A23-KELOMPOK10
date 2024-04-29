@@ -7,7 +7,7 @@ def koneksiDatabase():
             user = "root",
             password = "",
             database = "customer_service"
-        )
+        )   
         cursor = mydb.cursor() 
         return mydb, cursor
     except mysql.connector.Error as err:

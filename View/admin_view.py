@@ -38,7 +38,11 @@ def menuAdmin():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuAdminLaporan():
     while True:
@@ -82,7 +86,11 @@ def menuAdminLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuAdminTugas():
     while True:
@@ -126,7 +134,11 @@ def menuAdminTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuAdminAnggota():
     while True:
@@ -170,7 +182,11 @@ def menuAdminAnggota():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuAdminUser():
     while True:
@@ -214,7 +230,11 @@ def menuAdminUser():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuTampilkanLaporan():
     while True:
@@ -251,7 +271,11 @@ def menuTampilkanLaporan():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
 
 def menuTampilkanTugas():
     while True:
@@ -285,4 +309,8 @@ def menuTampilkanTugas():
             print("+===========================+")
             print("| Mohon Perhatikan Masukkan |")
             print("+===========================+")
-            input("Tekan enter untuk melanjutkan...")
+            try:
+                input("Tekan enter untuk melanjutkan...")
+            except:
+                print("Mohon Perhatikan Masukan")
+
