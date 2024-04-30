@@ -43,21 +43,21 @@ Pada program ini terdapat library yang digunakan, diantaranya adalah PrettyTable
 Beberapa fitur yang terdapat dalam program meliputi:
 
 - **User**
-  1. Buat Laporan: user dapat membuat laporan terkait Layanan Konsultasi Energi
-  2. Cek Laporan: user dapat mengecek laporan yang sudah dia buat
-  3. Keluar: user dapat kembali ke Menu utama
+1. Buat Laporan: user dapat membuat laporan terkait Layanan Konsultasi Energi
+2. Cek Laporan: user dapat mengecek laporan yang sudah dia buat
+3. Keluar: user dapat kembali ke Menu utama
    
 - ** Admin**
-  1. Laporan: admin dapat melakukan beberapa manajemen terkait Laporan, seperti CRUD Laporan, search laporan, dan sorting laporan.
-  2. Tugas: admin dapat melakukan beberapa manajemen terkait tugas, seperti melakukan CRUD tugas, search tugas, dan sorting tugas.
-  3. Anggota: admin dapat melakukan beberapa manajemen terkait admin, seperti melakukan CRUD admin, search admin, dan sorting admin.
-  4. User: admin dapat melakukan beberapa manajemen terkait user, seperti melakukan CRUD User, search User, dan sorting user.
-  5. Keluar: admin dapat kembali ke Menu Utama.
+1. Laporan: admin dapat melakukan beberapa manajemen terkait Laporan, seperti CRUD Laporan, search laporan, dan sorting laporan.
+2. Tugas: admin dapat melakukan beberapa manajemen terkait tugas, seperti melakukan CRUD tugas, search tugas, dan sorting tugas.
+3. Anggota: admin dapat melakukan beberapa manajemen terkait admin, seperti melakukan CRUD admin, search admin, dan sorting admin.
+4. User: admin dapat melakukan beberapa manajemen terkait user, seperti melakukan CRUD User, search User, dan sorting user.
+5. Keluar: admin dapat kembali ke Menu Utama.
 
 - **Anggota**
-  1. Tampilkan Tugas: Anggota dapat menampilkan tugas yang di berikan kepada dia terkait Laporan user
-  2. Konfirmasi Tugas: Anggota dapat mengubah status tugas yang awalnya pending menjadi selesai atau sudah dikerjakan
-  3. Keluar: Anggota dapat kembali ke Menu Utama
+1. Tampilkan Tugas: Anggota dapat menampilkan tugas yang di berikan kepada dia terkait Laporan user
+2. Konfirmasi Tugas: Anggota dapat mengubah status tugas yang awalnya pending menjadi selesai atau sudah dikerjakan
+3. Keluar: Anggota dapat kembali ke Menu Utama
 
 ## D. Cara Penggunaan
 1. Saat program pertama kali dimulai, program akan menampilkan menu utama yang terdiri atas 3 menu, yaitu 1) login, 2) daftar, 3) keluar.
