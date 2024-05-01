@@ -109,23 +109,30 @@ def daftar():
                                                     noHP = str(input("Masukkan Nomor HP: "))
                                                     if noHP.strip():
                                                         if cekFormatNomorHP(noHP):
-                                                            if len(noHP) <= 13:
-                                                                query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
-                                                                cursor.execute(query, (nama, password, email, alamat, noHP))
-                                                                db.commit()
-                                                                clear()
-                                                                pesan = f"| Akun Dengan Nama {nama} Berhasil Terdaftar |"
-                                                                print("+" + "=" * (len(pesan) - 2) + "+")
-                                                                print(pesan)
-                                                                print("+" + "=" * (len(pesan) - 2) + "+")
-                                                                input("Tekan enter untuk melanjutkan...")
-                                                                cursor.fetchall()
-                                                                break
+                                                            if len(noHP) >=10:
+                                                                if len(noHP) <= 13:
+                                                                    query = "INSERT INTO user (ID_Admin, Nama_User, Password_User, Email_User, Alamat, No_Hp) VALUES (NULL, %s, %s, %s, %s, %s)"
+                                                                    cursor.execute(query, (nama, password, email, alamat, noHP))
+                                                                    db.commit()
+                                                                    clear()
+                                                                    pesan = f"| Akun Dengan Nama {nama} Berhasil Terdaftar |"
+                                                                    print("+" + "=" * (len(pesan) - 2) + "+")
+                                                                    print(pesan)
+                                                                    print("+" + "=" * (len(pesan) - 2) + "+")
+                                                                    input("Tekan enter untuk melanjutkan...")
+                                                                    cursor.fetchall()
+                                                                    break
+                                                                else:
+                                                                    clear()
+                                                                    print("+=============================================+")
+                                                                    print("| Nomor HP Tidak Boleh Lebih Dari 13 Karakter |")
+                                                                    print("+=============================================+")
+                                                                    input("Tekan enter untuk melanjutkan...") 
                                                             else:
                                                                 clear()
-                                                                print("+=============================================+")
-                                                                print("| Nomor HP Tidak Boleh Lebih Dari 13 Karakter |")
-                                                                print("+=============================================+")
+                                                                print("+==============================================+")
+                                                                print("| Nomor HP Tidak Boleh Kurang Dari 10 Karakter |")
+                                                                print("+==============================================+")
                                                                 input("Tekan enter untuk melanjutkan...") 
                                                         else:
                                                             clear()
