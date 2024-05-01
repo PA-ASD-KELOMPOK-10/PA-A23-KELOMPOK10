@@ -74,9 +74,9 @@ def login():
                 print("+=======================+")
                 input("Tekan enter untuk melanjutkan...")
                 break
-        except:
+        except Exception as e:
             print("+===========================+")
-            print("| Mohon Perhatikan Masukkan |")
+            print(f"| Mohon Perhatikan Masukkan {e}|")
             print("+===========================+")
             try:
                 input("Tekan enter untuk melanjutkan...")
